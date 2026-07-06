@@ -144,32 +144,32 @@
 
 ### Pydantic Schemas
 
-- [ ] T023 [P] 创建 Photo schemas（请求/响应）
+- [x] T023 [P] 创建 Photo schemas（请求/响应）
   - **文件**: `backend/app/schemas/photo.py`
   - **标准**: PhotoResponse, PhotoUploadRequest 已定义
   - **验证**: 导入 schemas 无错误
 
-- [ ] T024 [P] 创建 Music schemas
+- [x] T024 [P] 创建 Music schemas
   - **文件**: `backend/app/schemas/music.py`
   - **标准**: MusicResponse 已定义
   - **验证**: 导入 schemas 无错误
 
-- [ ] T025 [P] 创建 Blessing schemas
+- [x] T025 [P] 创建 Blessing schemas
   - **文件**: `backend/app/schemas/blessing.py`
   - **标准**: BlessingResponse, BlessingUpdate 已定义
   - **验证**: 导入 schemas 无错误
 
-- [ ] T026 [P] 创建 VisitEvent schemas
+- [x] T026 [P] 创建 VisitEvent schemas
   - **文件**: `backend/app/schemas/visit.py`
   - **标准**: VisitEnterRequest, VisitExitRequest 已定义
   - **验证**: 导入 schemas 无错误
 
-- [ ] T027 [P] 创建 Message schemas
+- [x] T027 [P] 创建 Message schemas
   - **文件**: `backend/app/schemas/message.py`
   - **标准**: MessageCreate, MessageResponse 已定义
   - **验证**: 导入 schemas 无错误
 
-- [ ] T028 [P] 创建 Config schemas
+- [x] T028 [P] 创建 Config schemas
   - **文件**: `backend/app/schemas/config.py`
   - **标准**: ConfigResponse, ConfigUpdate, PasswordVerify 已定义
   - **验证**: 导入 schemas 无错误
