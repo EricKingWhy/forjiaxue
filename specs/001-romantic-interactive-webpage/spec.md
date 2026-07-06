@@ -1,233 +1,233 @@
-# Feature Specification: ForJiaXue - Romantic Interactive Webpage
+# 功能规范：ForJiaXue - 浪漫互动网页
 
-**Feature Branch**: `001-romantic-interactive-webpage`
+**功能分支**: `001-romantic-interactive-webpage`
 
-**Created**: 2026-07-06
+**创建日期**: 2026-07-06
 
-**Status**: Draft
+**状态**: 草稿
 
-**Input**: User description: "这是一个送给喜欢的人的私密互动网页项目"
+**输入**: 用户描述："这是一个送给喜欢的人的私密互动网页项目"
 
-## User Scenarios & Testing *(mandatory)*
+## 用户场景与测试 *(必填)*
 
-### User Story 1 - Entry Experience (Priority: P1) 🎯 MVP
+### 用户故事 1 - 入口体验 (优先级: P1) 🎯 MVP
 
-A visitor opens the private link `/ForJiaXue` and sees a beautiful entry animation with floating petals. They click to begin the romantic journey, triggering background music that plays throughout the entire experience.
+访客打开私密链接 `/ForJiaXue`，看到带有飘落花瓣的美丽入口动画。他们点击开始浪漫之旅，触发背景音乐，音乐贯穿整个体验。
 
-**Why this priority**: This is the first impression and essential gateway to the entire experience. Without a working entry, nothing else can be experienced.
+**为何此优先级**: 这是第一印象，是整个体验的必要入口。没有可工作的入口，其他一切都无法体验。
 
-**Independent Test**: Can be fully tested by opening `/ForJiaXue`, observing the petal animation, clicking the start button, and verifying music begins playing with a smooth transition animation.
+**独立测试**: 可通过打开 `/ForJiaXue`、观察花瓣动画、点击开始按钮、验证音乐开始播放并有平滑过渡动画来完整测试。
 
-**Acceptance Scenarios**:
+**验收场景**:
 
-1. **Given** a visitor opens `/ForJiaXue`, **When** the page loads, **Then** floating petal animation is displayed on screen
-2. **Given** the entry screen is displayed, **When** the visitor clicks the start button, **Then** background music begins playing
-3. **Given** music has started, **When** the transition completes, **Then** the visitor is smoothly transitioned to the photo particle screen
-4. **Given** music is playing, **When** the visitor navigates through all screens, **Then** music continues playing without interruption
-
----
-
-### User Story 2 - Photo Particle Aggregation (Priority: P1)
-
-A visitor watches as thousands of light particles flow from all directions and slowly aggregate into beautiful photos. They can interact by moving their mouse to gently scatter the particles, which gracefully return to their original positions.
-
-**Why this priority**: This is the core emotional moment of the experience - the visual "reveal" that creates surprise and wonder.
-
-**Independent Test**: Can be tested by observing particles aggregate over 5-8 seconds into recognizable photos, moving the mouse to scatter particles, and watching them return within 3 seconds.
-
-**Acceptance Scenarios**:
-
-1. **Given** the visitor has entered the second screen, **When** the particle animation begins, **Then** particles flow from screen edges toward the center
-2. **Given** particles are flowing, **When** 5-8 seconds pass, **Then** particles aggregate to form clear photo images
-3. **Given** photos are formed, **When** the visitor moves their mouse over the image, **Then** nearby particles gently scatter within an optimal radius
-4. **Given** particles have scattered, **When** 3 seconds pass without further interaction, **Then** particles smoothly return to their positions with linear animation
-5. **Given** the visitor has viewed the photo aggregation, **When** they click "Next", **Then** they transition to the 3D photo wall screen
+1. **假设** 访客打开 `/ForJiaXue`，**当** 页面加载，**则** 屏幕显示飘落花瓣动画
+2. **假设** 入口屏幕显示，**当** 访客点击开始按钮，**则** 背景音乐开始播放
+3. **假设** 音乐已开始，**当** 过渡完成，**则** 访客平滑过渡到照片粒子屏幕
+4. **假设** 音乐正在播放，**当** 访客浏览所有屏幕，**则** 音乐持续播放不中断
 
 ---
 
-### User Story 3 - 3D Memory Photo Wall (Priority: P2)
+### 用户故事 2 - 照片粒子聚合 (优先级: P1)
 
-A visitor browses a collection of 12 photos arranged in a cylindrical floating display. They can scroll, drag, or click to explore the memories, with ambient music-driven lighting effects enhancing the atmosphere.
+访客观看数千个光粒子从四面八方流动，缓慢聚合成美丽的照片。他们可以通过移动鼠标轻轻扰动粒子，粒子会优雅地返回原位。
 
-**Why this priority**: This extends the emotional experience from single photo reveal to a collection of shared memories, deepening engagement.
+**为何此优先级**: 这是体验的核心情感时刻——创造惊喜和惊叹的视觉"揭晓"。
 
-**Independent Test**: Can be tested by scrolling through the photo wall, clicking individual photos to enlarge them, and observing music-driven lighting fluctuations.
+**独立测试**: 可通过观察粒子在5-8秒内聚合成可识别的照片、移动鼠标扰动粒子、观看粒子在3秒内返回来测试。
 
-**Acceptance Scenarios**:
+**验收场景**:
 
-1. **Given** the visitor enters the third screen, **When** the photo wall loads, **Then** 12 photos are displayed in a cylindrical arrangement floating in 3D space
-2. **Given** the photo wall is displayed, **When** the visitor uses scroll wheel or drag gesture, **Then** the photo wall rotates allowing view of different photos
-3. **Given** multiple photos are visible, **When** the visitor clicks a photo, **Then** that photo enlarges for detailed viewing
-4. **Given** music is playing, **When** audio analysis detects high-frequency content, **Then** subtle particle/light flickering effects appear on photos
-5. **Given** the enlarged photo is displayed, **When** the visitor dismisses it, **Then** they return to the cylindrical browsing view
-
----
-
-### User Story 4 - Gesture Unlock and Final Revelation (Priority: P3)
-
-A visitor attempts to unlock the final message by forming a heart shape with two fingers. After successful recognition or opting to skip, they see a beautiful finale with romantic animations and heartfelt wishes.
-
-**Why this priority**: This creates the emotional climax and personal connection, but requires all previous screens to be working first.
-
-**Independent Test**: Can be tested by making a heart shape gesture in front of the camera, observing unlock feedback, and viewing the final animation with祝福文字.
-
-**Acceptance Scenarios**:
-
-1. **Given** the visitor has reached the unlock screen, **When** the camera activates, **Then** gesture recognition prompts are displayed
-2. **Given** gesture prompts are shown, **When** the visitor forms a heart shape with two fingers, **Then** the system recognizes the gesture and unlocks
-3. **Given** unlock fails, **When** fewer than 4 attempts have been made, **Then** a "please try again" message is shown
-4. **Given** 4 attempts have failed, **When** the visitor tries again, **Then** a skip option is offered
-5. **Given** the visitor unlocks or skips, **When** the finale loads, **Then** romantic animations (petals, roses) appear with blessing text
-6. **Given** the finale is displayed, **When** the visitor views the blessing, **Then** text wishes them happiness every day in an elegant, refined style
+1. **假设** 访客进入第二屏幕，**当** 粒子动画开始，**则** 粒子从屏幕边缘向中心流动
+2. **假设** 粒子正在流动，**当** 经过5-8秒，**则** 粒子聚合成清晰的照片图像
+3. **假设** 照片已形成，**当** 访客在图像上移动鼠标，**则** 附近粒子在最佳半径内轻轻散开
+4. **假设** 粒子已散开，**当** 3秒内无进一步交互，**则** 粒子通过线性动画平滑返回原位
+5. **假设** 访客已观看照片聚合，**当** 他们点击"下一步"，**则** 过渡到3D照片墙屏幕
 
 ---
 
-### User Story 5 - Admin Panel Management (Priority: P2)
+### 用户故事 3 - 3D记忆照片墙 (优先级: P2)
 
-An administrator logs into the private admin panel to upload photos, configure music, edit display text, and view visitor statistics including secret messages left by visitors.
+访客浏览排列在圆柱形浮动展示中的12张照片。他们可以滚动、拖动或点击探索记忆，环境音乐驱动的灯光效果增强氛围。
 
-**Why this priority**: Essential for content management, but can be developed alongside the frontend experience.
+**为何此优先级**: 这将情感体验从单张照片揭晓扩展到共享记忆集合，深化参与感。
 
-**Independent Test**: Can be tested by logging into admin panel, uploading a photo, viewing statistics dashboard, and receiving a secret message from a test visitor.
+**独立测试**: 可通过滚动浏览照片墙、点击单张照片放大、观察音乐驱动的灯光波动来测试。
 
-**Acceptance Scenarios**:
+**验收场景**:
 
-1. **Given** an administrator accesses the admin panel, **When** they authenticate, **Then** they see the management dashboard
-2. **Given** the dashboard is open, **When** the admin uploads a photo, **Then** the photo is processed (EXIF removed, compressed to WebP, thumbnail generated)
-3. **Given** photos are uploaded, **When** the admin deletes a photo, **Then** it is removed from the display rotation
-4. **Given** the admin opens settings, **When** they upload new music, **Then** the background music is updated for visitors
-5. **Given** the admin opens settings, **When** they edit blessing text, **Then** the finale message is updated
-6. **Given** visitors have accessed the page, **When** the admin views statistics, **Then** access times, device types, and duration are displayed in a visual dashboard
-7. **Given** a visitor sent a secret message, **When** the admin opens the message panel, **Then** the message content and timestamp are visible
+1. **假设** 访客进入第三屏幕，**当** 照片墙加载，**则** 12张照片以圆柱形排列在3D空间中浮动显示
+2. **假设** 照片墙已显示，**当** 访客使用滚轮或拖动手势，**则** 照片墙旋转，允许查看不同照片
+3. **假设** 多张照片可见，**当** 访客点击一张照片，**则** 该照片放大供详细查看
+4. **假设** 音乐正在播放，**当** 音频分析检测到高频内容，**则** 照片上出现微妙的粒子/灯光闪烁效果
+5. **假设** 放大照片已显示，**当** 访客关闭它，**则** 返回圆柱形浏览视图
 
 ---
 
-### Edge Cases
+### 用户故事 4 - 手势解锁与最终揭晓 (优先级: P3)
 
-- What happens when a visitor's browser blocks camera access for gesture recognition? → Skip option is immediately offered with an explanation
-- What happens when the visitor navigates away and returns mid-experience? → Music restarts from beginning, experience resets to entry screen
-- What happens when a photo fails to load? → Graceful fallback: particle aggregation shows placeholder or skips to next photo
-- What happens when audio context fails to initialize? → Visual experience continues without music, visitor can click to retry audio
-- What happens when gesture detection is slow on older devices? → Progress indicator shown, skip option available after 10 seconds of no recognition
+访客尝试通过两根手指形成心形来解锁最终祝福。成功识别或选择跳过后，他们看到带有浪漫动画和真挚祝福的美丽结局。
 
-## Requirements *(mandatory)*
+**为何此优先级**: 这创造了情感高潮和个人连接，但需要所有前置屏幕先工作。
 
-### Functional Requirements
+**独立测试**: 可通过在摄像头前做出心形手势、观察解锁反馈、查看带有祝福文字的最终动画来测试。
 
-**Entry Screen**:
-- **FR-001**: System MUST display floating petal animation before user interaction begins
-- **FR-002**: System MUST provide a clear start button/clickable area to begin the experience
-- **FR-003**: System MUST play background music when user clicks to start
-- **FR-004**: System MUST smoothly transition to photo particle screen after music starts
-- **FR-005**: System MUST maintain continuous music playback across all screens
+**验收场景**:
 
-**Photo Particle Screen**:
-- **FR-006**: System MUST generate 50,000+ particles for photo aggregation
-- **FR-007**: System MUST animate particles flowing from screen edges toward center over 5-8 seconds
-- **FR-008**: System MUST aggregate particles into recognizable photo images
-- **FR-009**: System MUST support multiple photos as aggregation targets (configurable via admin)
-- **FR-010**: System MUST scatter nearby particles when mouse moves over the image
-- **FR-011**: System MUST return scattered particles to original positions after 3 seconds using smooth linear animation
-- **FR-012**: System MUST provide a "Next" button to proceed to photo wall
+1. **假设** 访客到达解锁屏幕，**当** 摄像头激活，**则** 显示手势识别提示
+2. **假设** 手势提示已显示，**当** 访客用两根手指形成心形，**则** 系统识别手势并解锁
+3. **假设** 解锁失败，**当** 尝试次数少于4次，**则** 显示"请再试一次"消息
+4. **假设** 已失败4次，**当** 访客再次尝试，**则** 提供跳过选项
+5. **假设** 访客解锁或跳过，**当** 结局加载，**则** 出现浪漫动画（花瓣、玫瑰）和祝福文字
+6. **假设** 结局已显示，**当** 访客观看祝福，**则** 文字以优雅精致的风格祝愿他们每天幸福
 
-**3D Photo Wall Screen**:
-- **FR-013**: System MUST display uploaded photos in a cylindrical floating arrangement in 3D space
-- **FR-014**: System MUST support scroll wheel and drag gestures for rotating/browsing the wall
-- **FR-015**: System MUST allow clicking individual photos to enlarge them
-- **FR-016**: System MUST dismiss enlarged photos when visitor interacts again
-- **FR-017**: System MUST apply music-driven lighting effects (high-frequency-triggered subtle flickering)
+---
 
-**Gesture Unlock Screen**:
-- **FR-018**: System MUST activate device camera for gesture recognition
-- **FR-019**: System MUST recognize two-finger heart shape gesture using hand tracking
-- **FR-020**: System MUST count gesture attempts and show "try again" feedback for first 4 failures
-- **FR-021**: System MUST offer skip unlock option after 4 failed attempts
-- **FR-022**: System MUST display finale screen upon successful unlock or skip
-- **FR-023**: System MUST show romantic animations (floating petals, roses) in finale
-- **FR-024**: System MUST display blessing text wishing happiness with elegant styling
+### 用户故事 5 - 管理后台管理 (优先级: P2)
 
-**Admin Panel**:
-- **FR-025**: System MUST provide private admin panel access with authentication
-- **FR-026**: System MUST allow photo upload with automatic processing (EXIF removal, WebP compression, thumbnail generation)
-- **FR-027**: System MUST allow photo deletion from display rotation
-- **FR-028**: System MUST allow music file upload and replacement
-- **FR-029**: System MUST allow blessing text editing
-- **FR-030**: System MUST track visitor access events (timestamp, device type, duration)
-- **FR-031**: System MUST display statistics in a visual dashboard
-- **FR-032**: System MUST allow visitors to send secret messages to admin
-- **FR-033**: System MUST display received secret messages in admin panel
+管理员登录私密管理后台，上传照片、配置音乐、编辑显示文字、查看访客统计，包括访客留下的秘密消息。
 
-**Private Access**:
-- **FR-034**: System MUST serve the experience at fixed path `/ForJiaXue`
-- **FR-035**: System MUST allow multiple visitors to access the same link without restriction
-- **FR-036**: System MUST maintain link validity permanently (no expiration)
+**为何此优先级**: 内容管理必不可少，但可与前端体验同步开发。
 
-### Key Entities
+**独立测试**: 可通过登录管理后台、上传照片、查看统计仪表板、接收测试访客的秘密消息来测试。
 
-- **Photo**: Represents an image uploaded by admin, includes original file, processed WebP version, thumbnail, display order, upload timestamp
-- **MusicTrack**: Background music file uploaded by admin, includes file data, upload timestamp
-- **BlessingText**: Final message content editable by admin, includes text content, last modified timestamp
-- **VisitEvent**: Access record, includes visitor identifier, timestamp, device type, screen progression, duration
-- **SecretMessage**: Visitor message, includes content, timestamp, visitor identifier
-- **AdminSession**: Authentication state for admin panel access
+**验收场景**:
 
-## Success Criteria *(mandatory)*
+1. **假设** 管理员访问管理后台，**当** 他们认证，**则** 看到管理仪表板
+2. **假设** 仪表板已打开，**当** 管理员上传照片，**则** 照片被处理（移除EXIF、压缩为WebP、生成缩略图）
+3. **假设** 照片已上传，**当** 管理员删除照片，**则** 从显示轮播中移除
+4. **假设** 管理员打开设置，**当** 他们上传新音乐，**则** 为访客更新背景音乐
+5. **假设** 管理员打开设置，**当** 他们编辑祝福文字，**则** 结局祝福更新
+6. **假设** 访客已访问页面，**当** 管理员查看统计，**则** 在可视化仪表板显示访问时间、设备类型和持续时间
+7. **假设** 访客发送了秘密消息，**当** 管理员打开消息面板，**则** 消息内容和时间戳可见
 
-### Measurable Outcomes
+---
 
-- **SC-001**: Visitor can complete the full experience (entry → particles → photo wall → unlock → finale) in under 3 minutes
-- **SC-002**: Photo particle aggregation completes within 5-8 seconds on target device (iPhone 16 Pro Max)
-- **SC-003**: Particle scattering and return animation appears smooth at 60fps
-- **SC-004**: 3D photo wall supports browsing 12 photos without visible lag
-- **SC-005**: Music plays continuously without interruption across all screen transitions
-- **SC-006**: Gesture unlock succeeds within 3 attempts on 80% of tests on iPhone 16 Pro Max
-- **SC-007**: Admin can upload a photo and see it appear in the experience within 30 seconds
-- **SC-008**: Admin can view visitor statistics including device types, durations, and secret messages
-- **SC-009**: All animations and transitions feel elegant and romantic, not flashy or cheap (qualitative user satisfaction)
-- **SC-010**: Experience loads and runs smoothly on target device without crashes
+### 边缘情况
 
-## Assumptions
+- 访客浏览器阻止手势识别摄像头访问时怎么办？→ 立即提供跳过选项并说明原因
+- 访客中途离开并返回时怎么办？→ 音乐从头开始，体验重置到入口屏幕
+- 照片加载失败时怎么办？→ 优雅降级：粒子聚合显示占位符或跳到下一张照片
+- 音频上下文初始化失败时怎么办？→ 视觉体验继续无音乐，访客可点击重试音频
+- 旧设备手势检测缓慢时怎么办？→ 显示进度指示器，10秒无识别后提供跳过选项
 
-- Target device is iPhone 16 Pro Max running iOS Safari - no mobile optimization required for other devices
-- Visitor will use a modern browser with WebGL, Web Audio API, and camera access support
-- Admin will access panel from a desktop browser
-- Music file is provided by user in MP3 or WebM audio format
-- Photos are provided by user in common image formats (JPEG, PNG, WebP)
-- Single admin user manages the content (no multi-admin requirement)
-- Deployment target is Vercel or Cloudflare Pages with serverless backend
-- No password protection for visitor link - the `/ForJiaXue` path is the privacy mechanism
-- Admin panel has simple password protection (no complex authentication system needed)
-- Visitor messages are stored but not realtime - admin checks them periodically
+## 需求 *(必填)*
 
-## Phased Delivery
+### 功能需求
 
-### Phase 1: Core Experience (MVP)
-- Entry screen with petal animation
-- Music playback trigger
-- Photo particle aggregation (single photo first)
-- Basic backend: photo upload, music upload, `/ForJiaXue` access
+**入口屏幕**:
+- **FR-001**: 系统 MUST 在用户交互开始前显示飘落花瓣动画
+- **FR-002**: 系统 MUST 提供清晰的开始按钮/可点击区域来开始体验
+- **FR-003**: 系统 MUST 在用户点击开始时播放背景音乐
+- **FR-004**: 系统 MUST 在音乐开始后平滑过渡到照片粒子屏幕
+- **FR-005**: 系统 MUST 在所有屏幕间保持音乐连续播放
 
-### Phase 2: Photo Collection
-- Multi-photo support for particle aggregation
-- 3D cylindrical photo wall
-- Photo enlargement interaction
-- Backend: multi-photo management
+**照片粒子屏幕**:
+- **FR-006**: 系统 MUST 生成50,000+粒子用于照片聚合
+- **FR-007**: 系统 MUST 在5-8秒内动画粒子从屏幕边缘流向中心
+- **FR-008**: 系统 MUST 将粒子聚合成可识别的照片图像
+- **FR-009**: 系统 MUST 支持多张照片作为聚合目标（可通过管理后台配置）
+- **FR-010**: 系统 MUST 在鼠标移过图像时扰动附近粒子
+- **FR-011**: 系统 MUST 在3秒后使用平滑线性动画让扰动粒子返回原位
+- **FR-012**: 系统 MUST 提供"下一步"按钮进入照片墙
 
-### Phase 3: Audio-Visual Enhancement
-- Music-driven lighting effects on photo wall
-- High-frequency audio analysis integration
-- Effect parameter tuning for elegant appearance
+**3D照片墙屏幕**:
+- **FR-013**: 系统 MUST 在3D空间中以圆柱形浮动排列显示上传的照片
+- **FR-014**: 系统 MUST 支持滚轮和拖动手势旋转/浏览照片墙
+- **FR-015**: 系统 MUST 允许点击单张照片放大
+- **FR-016**: 系统 MUST 在访客再次交互时关闭放大的照片
+- **FR-017**: 系统 MUST 应用音乐驱动的灯光效果（高频触发的微妙闪烁）
 
-### Phase 4: Gesture and Finale
-- MediaPipe hand gesture recognition
-- Heart shape detection
-- Attempt counting and skip option
-- Finale animations (petals, roses)
-- Blessing text display
-- Backend: text editing
+**手势解锁屏幕**:
+- **FR-018**: 系统 MUST 激活设备摄像头进行手势识别
+- **FR-019**: 系统 MUST 使用手部追踪识别两指心形手势
+- **FR-020**: 系统 MUST 计算手势尝试次数，前4次失败显示"再试一次"反馈
+- **FR-021**: 系统 MUST 在4次失败后提供跳过解锁选项
+- **FR-022**: 系统 MUST 在成功解锁或跳过后显示结局屏幕
+- **FR-023**: 系统 MUST 在结局中显示浪漫动画（飘落花瓣、玫瑰）
+- **FR-024**: 系统 MUST 以优雅风格显示祝愿幸福的祝福文字
 
-### Phase 5: Admin and Analytics
-- Complete admin panel UI
-- Visitor statistics dashboard
-- Secret message feature
-- Photo processing pipeline (EXIF, WebP, thumbnails)
+**管理后台**:
+- **FR-025**: 系统 MUST 提供带认证的私密管理后台访问
+- **FR-026**: 系统 MUST 允许照片上传并自动处理（移除EXIF、WebP压缩、生成缩略图）
+- **FR-027**: 系统 MUST 允许从显示轮播中删除照片
+- **FR-028**: 系统 MUST 允许音乐文件上传和替换
+- **FR-029**: 系统 MUST 允许编辑祝福文字
+- **FR-030**: 系统 MUST 追踪访客访问事件（时间戳、设备类型、持续时间）
+- **FR-031**: 系统 MUST 在可视化仪表板显示统计
+- **FR-032**: 系统 MUST 允许访客向管理员发送秘密消息
+- **FR-033**: 系统 MUST 在管理后台显示收到的秘密消息
+
+**私密访问**:
+- **FR-034**: 系统 MUST 在固定路径 `/ForJiaXue` 提供体验
+- **FR-035**: 系统 MUST 允许多个访客无限制访问同一链接
+- **FR-036**: 系统 MUST 永久保持链接有效（无过期）
+
+### 关键实体
+
+- **Photo**: 管理员上传的图像，包含原始文件、处理后的WebP版本、缩略图、显示顺序、上传时间戳
+- **MusicTrack**: 管理员上传的背景音乐文件，包含文件数据、上传时间戳
+- **BlessingText**: 管理员可编辑的最终祝福内容，包含文字内容、最后修改时间戳
+- **VisitEvent**: 访问记录，包含访客标识符、时间戳、设备类型、屏幕进展、持续时间
+- **SecretMessage**: 访客消息，包含内容、时间戳、访客标识符
+- **AdminSession**: 管理后台访问的认证状态
+
+## 成功标准 *(必填)*
+
+### 可衡量结果
+
+- **SC-001**: 访客可在3分钟内完成完整体验（入口 → 粒子 → 照片墙 → 解锁 → 结局）
+- **SC-002**: 照片粒子聚合在目标设备（iPhone 16 Pro Max）上于5-8秒内完成
+- **SC-003**: 粒子扰动和返回动画在60fps下平滑显示
+- **SC-004**: 3D照片墙支持浏览12张照片无明显延迟
+- **SC-005**: 音乐在所有屏幕过渡间连续播放不中断
+- **SC-006**: 手势解锁在iPhone 16 Pro Max上80%的测试中3次内成功
+- **SC-007**: 管理员上传照片后30秒内可在体验中看到
+- **SC-008**: 管理员可查看访客统计，包括设备类型、持续时间和秘密消息
+- **SC-009**: 所有动画和过渡感觉优雅浪漫，不花哨不廉价（定性用户满意度）
+- **SC-010**: 体验在目标设备上加载运行流畅无崩溃
+
+## 假设
+
+- 目标设备是iPhone 16 Pro Max运行iOS Safari - 不需要为其他设备做移动优化
+- 访客将使用支持WebGL、Web Audio API和摄像头访问的现代浏览器
+- 管理员将从桌面浏览器访问后台
+- 音乐文件由用户提供，格式为MP3或WebM音频
+- 照片由用户提供，格式为常见图像格式（JPEG、PNG、WebP）
+- 单个管理员管理内容（无多管理员需求）
+- 部署目标是Vercel或Cloudflare Pages配合serverless后端
+- 访客链接无密码保护 - `/ForJiaXue`路径即隐私机制
+- 管理后台有简单密码保护（无需复杂认证系统）
+- 访客消息存储但非实时 - 管理员定期查看
+
+## 分阶段交付
+
+### Phase 1: 核心体验 (MVP)
+- 入口屏幕和花瓣动画
+- 音乐播放触发
+- 照片粒子聚合（先单张照片）
+- 基础后端：照片上传、音乐上传、`/ForJiaXue`访问
+
+### Phase 2: 照片集合
+- 照片粒子聚合支持多张照片
+- 3D圆柱形照片墙
+- 照片放大交互
+- 后端：多照片管理
+
+### Phase 3: 音频视觉增强
+- 照片墙上音乐驱动灯光效果
+- 高频音频分析集成
+- 效果参数调优以实现优雅外观
+
+### Phase 4: 手势和结局
+- MediaPipe手势识别
+- 心形检测
+- 尝试计数和跳过选项
+- 结局动画（花瓣、玫瑰）
+- 祝福文字显示
+- 后端：文字编辑
+
+### Phase 5: 管理和统计
+- 完整管理后台UI
+- 访客统计仪表板
+- 秘密消息功能
+- 照片处理流水线（EXIF、WebP、缩略图）

@@ -1,24 +1,24 @@
 # CLAUDE.md
 
-## Project Goal
+## 项目目标
 
-This project is a private interactive romantic webpage.
+这是一个私密互动浪漫网页项目。
 
-It must include:
-- intro interaction
-- photo particle aggregation
-- 3D memory photo wall
-- scroll storytelling
-- music reactive visuals
-- MediaPipe gesture unlock
-- FastAPI admin panel
-- photo upload and processing
-- private access link
-- basic access events
+必须包含：
+- 入口互动体验
+- 照片粒子聚合效果
+- 3D记忆照片墙
+- 滚动叙事流程
+- 音乐驱动视觉效果
+- MediaPipe手势解锁
+- FastAPI管理后台
+- 照片上传和处理
+- 私密访问链接
+- 基本访问事件统计
 
-## Tech Stack
+## 技术栈
 
-Frontend:
+前端：
 - Next.js
 - React
 - TypeScript
@@ -31,80 +31,79 @@ Frontend:
 - Web Audio API
 - MediaPipe Hand Landmarker
 
-Backend:
+后端：
 - Python 3.11
 - FastAPI
 - SQLite
 - SQLAlchemy
 - Pillow
 - OpenCV
-- local uploads directory
+- 本地uploads目录
 
-## Core Rules
+## 核心规则
 
-- Think before coding.
-- Do not guess requirements. Ask or write assumptions clearly.
-- Prefer small, verifiable implementation steps.
-- Do not edit unrelated files.
-- Do not rewrite large modules unless explicitly requested.
-- Do not claim completion without verification evidence.
-- After changing code, run the smallest relevant validation command.
-- If a command fails, report the exact error and fix the root cause.
-- Keep the visual experience smooth on mobile devices.
-- Every advanced effect must have a fallback.
+- 编码前先思考。
+- 不要猜测需求。有疑问就问或明确写出假设。
+- 优先小步、可验证的实现步骤。
+- 不要修改无关文件。
+- 不要重写大型模块，除非明确要求。
+- 没有验证证据不要声称完成。
+- 修改代码后，运行最小相关验证命令。
+- 如果命令失败，报告具体错误并修复根本原因。
+- 保持移动端视觉体验流畅。
+- 每个高级效果必须有降级方案。
 
-## Product Direction
+## 产品方向
 
-The experience should feel restrained, elegant, and private.
-Do not create a cheap template page.
-Do not overload the page with too many effects.
+体验应该克制、优雅、私密。
+不要创建廉价模板页面。
+不要用过多效果堆砌页面。
 
-Core emotional path:
-1. Start
-2. Photo emerges from particles
-3. Memories appear as a 3D wall
-4. Music drives subtle visual changes
-5. Gesture unlock reveals the final message
+核心情感路径：
+1. 开始
+2. 照片从粒子中浮现
+3. 记忆以3D墙的形式呈现
+4. 音乐驱动微妙视觉变化
+5. 手势解锁揭示最终祝福
 
-## Implementation Constraints
+## 实现约束
 
-- Do not use react-particle-image.
-- Implement the main photo particle scene with React Three Fiber + Three.js Shader.
-- Use Particular Drift only as a reference for image-to-particles, edge flow, GLSL, and flow-field ideas.
-- Use Interactive Particles only as a reference for off-screen texture, mouse/touch disturbance, and shader interaction.
-- Do not copy reference project source code directly.
-- Keep backend and frontend clearly separated.
+- 不要使用 react-particle-image。
+- 用 React Three Fiber + Three.js Shader 实现主照片粒子场景。
+- Particular Drift 仅作为参考：图像到粒子、边缘流动、GLSL、流场概念。
+- Interactive Particles 仅作为参考：离屏纹理、鼠标/触摸扰动、shader交互。
+- 不要直接复制参考项目源码。
+- 保持后端和前端清晰分离。
 
-## Frontend Layering
+## 前端分层
 
-- app: Next.js routes
-- components: UI and scene components
-- three: shader, geometry, particle engine, R3F utilities
-- hooks: audio, gesture, story config
-- stores: Zustand state
-- lib: API client and shared helpers
+- app: Next.js路由
+- components: UI和场景组件
+- three: shader、几何体、粒子引擎、R3F工具
+- hooks: 音频、手势、故事配置
+- stores: Zustand状态
+- lib: API客户端和共享助手
 
-## Backend Layering
+## 后端分层
 
-- api: FastAPI routers
-- schemas: Pydantic request and response models
-- models: SQLAlchemy models
-- services: image processing, story config, access, events
-- core: config and shared utilities
+- api: FastAPI路由器
+- schemas: Pydantic请求响应模型
+- models: SQLAlchemy模型
+- services: 图像处理、故事配置、访问、事件
+- core: 配置和共享工具
 
-## Required Validation
+## 必需验证
 
-Frontend:
+前端：
 - npm run lint
 - npm run build
-- manual mobile viewport test
+- 手动移动端视口测试
 
-Backend:
+后端：
 - uvicorn app.main:app --reload
 - curl /api/health
-- manual Swagger test for upload and story APIs
+- 手动Swagger测试上传和故事API
 
-Deployment:
+部署：
 - docker compose up --build
-- open /love/{slug}
-CLAUDE
+- 打开 /love/{slug}

@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+sqlalchemy
+pillow
+opencv-python
+python-multipart
+pyjwt
+passlib
+python-dotenv
+pydantic-settings
