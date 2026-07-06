@@ -1,7 +1,9 @@
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.api.admin import router as admin_router
 from app.api.blessing import router as blessing_router
@@ -12,6 +14,11 @@ from app.api.photos import router as photos_router
 from app.api.stats import router as stats_router
 from app.config import settings
 from app.database import initialize_database
+
+
+UPLOADS_ROOT = Path(__file__).resolve().parent.parent / "uploads"
+for upload_directory in ("original", "webp", "thumb", "music", "particle_map"):
+    (UPLOADS_ROOT / upload_directory).mkdir(parents=True, exist_ok=True)
 
 
 @asynccontextmanager
@@ -42,6 +49,7 @@ app.include_router(blessing_router)
 app.include_router(messages_router)
 app.include_router(stats_router)
 app.include_router(admin_router)
+app.mount("/uploads", StaticFiles(directory=UPLOADS_ROOT), name="uploads")
 
 
 @app.get("/api/health")

@@ -13,6 +13,7 @@ from app.main import app
 from app.models.photo import Photo
 from app.models.music import MusicTrack
 from app.models.config import AppConfig
+from app.models.blessing import BlessingText
 from app.models.message import SecretMessage
 from app.models.visit import VisitEvent
 
@@ -83,6 +84,15 @@ class PublicApiTests(unittest.TestCase):
         self.assertEqual("/uploads/music/active.mp3", response.json()["music_url"])
 
     def test_get_config_returns_public_settings(self) -> None:
+        with SessionLocal() as session:
+            config = session.get(AppConfig, 1)
+            assert config is not None
+            config.visitor_password_enabled = True
+            config.bloom_enabled_default = True
+            config.particle_tier_default = "medium"
+            config.fallback_button_text = "识别不到？点击这里继续"
+            session.commit()
+
         response = self.client.get("/api/config")
 
         self.assertEqual(200, response.status_code)
@@ -187,6 +197,18 @@ class PublicApiTests(unittest.TestCase):
             self.assertIsNotNone(event.exited_at)
             self.assertEqual(["entry"], event.screens_completed)
             self.assertGreaterEqual(event.duration_seconds or 0, 0)
+
+    def test_uploads_are_served_as_static_files(self) -> None:
+        test_file = Path("uploads/webp/test-static.webp")
+        test_file.parent.mkdir(parents=True, exist_ok=True)
+        test_file.write_bytes(b"static-content")
+        try:
+            response = self.client.get("/uploads/webp/test-static.webp")
+        finally:
+            test_file.unlink(missing_ok=True)
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(b"static-content", response.content)
 
 
 class AdminApiTests(unittest.TestCase):
@@ -398,6 +420,48 @@ class AdminApiTests(unittest.TestCase):
             self.assertEqual(2, len(tracks))
             self.assertFalse(tracks[0].is_active)
             self.assertTrue(tracks[1].is_active)
+
+    def test_admin_can_update_blessing_paragraphs(self) -> None:
+        denied = self.client.put(
+            "/api/admin/blessing", json={"paragraphs": ["new blessing"]}
+        )
+        response = self.client.put(
+            "/api/admin/blessing",
+            json={"paragraphs": ["first", "second"]},
+            headers=self.headers,
+        )
+
+        self.assertEqual(401, denied.status_code)
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(["first", "second"], response.json()["paragraphs"])
+        with SessionLocal() as session:
+            blessing = session.query(BlessingText).first()
+            assert blessing is not None
+            self.assertEqual("first\n\nsecond", blessing.content)
+
+    def test_admin_can_update_app_config_and_hash_password(self) -> None:
+        response = self.client.put(
+            "/api/admin/config",
+            json={
+                "visitor_password_enabled": False,
+                "visitor_password": "new-password",
+                "bloom_enabled_default": False,
+                "particle_tier_default": "low",
+                "fallback_button_text": "continue",
+            },
+            headers=self.headers,
+        )
+
+        self.assertEqual(200, response.status_code)
+        self.assertFalse(response.json()["visitor_password_enabled"])
+        self.assertEqual("low", response.json()["particle_tier_default"])
+        with SessionLocal() as session:
+            config = session.get(AppConfig, 1)
+            assert config is not None
+            self.assertEqual(
+                hashlib.sha256(b"new-password").hexdigest(),
+                config.visitor_password_hash,
+            )
 
 
 if __name__ == "__main__":

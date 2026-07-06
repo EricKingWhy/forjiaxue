@@ -301,19 +301,19 @@
 
 ### 配置管理
 
-- [ ] T052 创建 PUT /api/admin/blessing 端点
+- [x] T052 创建 PUT /api/admin/blessing 端点
   - **文件**: `backend/app/api/blessing.py`
   - **标准**: 更新 paragraphs 数组
   - **验证**: `curl -X PUT localhost:8000/api/admin/blessing -d '{"paragraphs":["test"]}'`
 
-- [ ] T053 创建 PUT /api/admin/config 端点
+- [x] T053 创建 PUT /api/admin/config 端点
   - **文件**: `backend/app/api/config.py`
   - **标准**: 更新 visitor_password_enabled, bloom_enabled_default 等
   - **验证**: `curl -X PUT localhost:8000/api/admin/config -d '{"visitor_password_enabled":false}'`
 
 ### 静态文件服务
 
-- [ ] T054 配置 uploads 静态文件服务
+- [x] T054 配置 uploads 静态文件服务
   - **文件**: `backend/app/main.py`
   - **标准**: /uploads/* 路由到 backend/uploads/
   - **验证**: `curl localhost:8000/uploads/webp/test.webp` 返回文件
