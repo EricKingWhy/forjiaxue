@@ -6,9 +6,11 @@ from fastapi import APIRouter, Body, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.core.security import require_admin
 from app.database import get_db
 from app.models.visit import VisitEvent
 from app.schemas.visit import VisitEnterRequest, VisitExitRequest
+from app.services.stats import build_admin_stats
 
 
 router = APIRouter(prefix="/api", tags=["statistics"])
@@ -54,3 +56,8 @@ def record_visit(
     db.commit()
     db.refresh(event)
     return {"event_id": event.id}
+
+
+@router.get("/admin/stats", dependencies=[Depends(require_admin)])
+def get_admin_stats(db: Session = Depends(get_db)) -> dict[str, object]:
+    return build_admin_stats(db)

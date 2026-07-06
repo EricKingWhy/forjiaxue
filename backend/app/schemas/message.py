@@ -16,3 +16,7 @@ class MessageResponse(BaseModel):
     visitor_id: str | None
     created_at: datetime
     is_read: bool
+
+
+class MessageReadUpdate(BaseModel):
+    is_read: bool

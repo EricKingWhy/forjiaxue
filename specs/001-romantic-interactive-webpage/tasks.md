@@ -218,29 +218,29 @@
 
 ### 管理员认证
 
-- [ ] T037 创建密码哈希服务
+- [x] T037 创建密码哈希服务
   - **文件**: `backend/app/services/auth.py`, `backend/app/core/security.py`
   - **标准**: SHA-256 哈希函数工作，ADMIN_PASSWORD 验证
   - **验证**: Python 测试脚本哈希并验证密码
 
-- [ ] T038 创建 POST /api/admin/auth 端点
+- [x] T038 创建 POST /api/admin/auth 端点
   - **文件**: `backend/app/api/admin.py`, `backend/app/main.py`
   - **标准**: 正确 ADMIN_PASSWORD 返回 JWT token
   - **验证**: `curl -X POST localhost:8000/api/admin/auth -d '{"password":"admin123"}'`
 
 ### 管理员端点
 
-- [ ] T039 创建 GET /api/admin/stats 端点
+- [x] T039 创建 GET /api/admin/stats 端点
   - **文件**: `backend/app/api/stats.py`, `backend/app/services/stats.py`
   - **标准**: 返回 total_visits, device_breakdown, recent_visits
   - **验证**: `curl -H "Authorization: Bearer <token>" localhost:8000/api/admin/stats`
 
-- [ ] T040 创建 GET /api/admin/messages 端点
+- [x] T040 创建 GET /api/admin/messages 端点
   - **文件**: `backend/app/api/messages.py`
   - **标准**: 返回 messages 数组包含 unread_count
   - **验证**: `curl -H "Authorization: Bearer <token>" localhost:8000/api/admin/messages`
 
-- [ ] T041 创建 PATCH /api/admin/messages/{id} 端点
+- [x] T041 创建 PATCH /api/admin/messages/{id} 端点
   - **文件**: `backend/app/api/messages.py`
   - **标准**: 更新 is_read 状态
   - **验证**: `curl -X PATCH -H "Authorization: Bearer <token>" localhost:8000/api/admin/messages/1 -d '{"is_read":true}'`

@@ -184,5 +184,87 @@ class PublicApiTests(unittest.TestCase):
             self.assertGreaterEqual(event.duration_seconds or 0, 0)
 
 
+class AdminApiTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        initialize_database()
+        cls.client = TestClient(app)
+        login = cls.client.post("/api/admin/auth", json={"password": "admin123"})
+        cls.headers = {"Authorization": f"Bearer {login.json()['token']}"}
+
+    def test_admin_stats_requires_token_and_returns_aggregates(self) -> None:
+        with SessionLocal() as session:
+            session.query(VisitEvent).delete()
+            session.add_all(
+                [
+                    VisitEvent(
+                        ip_hash="a" * 64,
+                        device_type="mobile",
+                        duration_seconds=120,
+                        screens_completed=["entry"],
+                        unlock_method="gesture",
+                    ),
+                    VisitEvent(
+                        ip_hash="b" * 64,
+                        device_type="desktop",
+                        duration_seconds=60,
+                        screens_completed=["entry", "particles"],
+                        unlock_method="fallback",
+                    ),
+                ]
+            )
+            session.commit()
+
+        denied = self.client.get("/api/admin/stats")
+        response = self.client.get("/api/admin/stats", headers=self.headers)
+
+        self.assertEqual(401, denied.status_code)
+        self.assertEqual(200, response.status_code)
+        payload = response.json()
+        self.assertEqual(2, payload["total_visits"])
+        self.assertEqual({"mobile": 1, "desktop": 1}, payload["device_breakdown"])
+        self.assertEqual(2, len(payload["recent_visits"]))
+
+    def test_admin_messages_returns_messages_and_unread_count(self) -> None:
+        with SessionLocal() as session:
+            session.query(SecretMessage).delete()
+            session.add_all(
+                [
+                    SecretMessage(content="unread", is_read=False),
+                    SecretMessage(content="read", is_read=True),
+                ]
+            )
+            session.commit()
+
+        denied = self.client.get("/api/admin/messages")
+        response = self.client.get("/api/admin/messages", headers=self.headers)
+
+        self.assertEqual(401, denied.status_code)
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(1, response.json()["unread_count"])
+        self.assertEqual(2, len(response.json()["messages"]))
+
+    def test_admin_can_mark_message_read(self) -> None:
+        with SessionLocal() as session:
+            message = SecretMessage(content="mark me", is_read=False)
+            session.add(message)
+            session.commit()
+            session.refresh(message)
+            message_id = message.id
+
+        denied = self.client.patch(
+            f"/api/admin/messages/{message_id}", json={"is_read": True}
+        )
+        response = self.client.patch(
+            f"/api/admin/messages/{message_id}",
+            json={"is_read": True},
+            headers=self.headers,
+        )
+
+        self.assertEqual(401, denied.status_code)
+        self.assertEqual(200, response.status_code)
+        self.assertEqual({"id": message_id, "is_read": True}, response.json())
+
+
 if __name__ == "__main__":
     unittest.main()

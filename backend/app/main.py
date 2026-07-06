@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.admin import router as admin_router
 from app.api.blessing import router as blessing_router
 from app.api.config import router as config_router
 from app.api.messages import router as messages_router
@@ -40,6 +41,7 @@ app.include_router(config_router)
 app.include_router(blessing_router)
 app.include_router(messages_router)
 app.include_router(stats_router)
+app.include_router(admin_router)
 
 
 @app.get("/api/health")
