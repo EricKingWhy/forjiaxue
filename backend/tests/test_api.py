@@ -1,7 +1,12 @@
 import hashlib
+from io import BytesIO
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
 from fastapi.testclient import TestClient
+from PIL import Image
 
 from app.database import SessionLocal, initialize_database
 from app.main import app
@@ -264,6 +269,135 @@ class AdminApiTests(unittest.TestCase):
         self.assertEqual(401, denied.status_code)
         self.assertEqual(200, response.status_code)
         self.assertEqual({"id": message_id, "is_read": True}, response.json())
+
+    def test_admin_photo_upload_processes_and_persists_photo(self) -> None:
+        image_buffer = BytesIO()
+        Image.new("RGB", (8, 8), "orange").save(image_buffer, format="JPEG")
+        with SessionLocal() as session:
+            session.query(Photo).delete()
+            session.commit()
+
+        with TemporaryDirectory() as temporary_directory:
+            uploads_root = Path(temporary_directory)
+            with patch("app.api.photos.UPLOADS_ROOT", uploads_root):
+                response = self.client.post(
+                    "/api/admin/photos",
+                    files={"file": ("photo.jpg", image_buffer.getvalue(), "image/jpeg")},
+                    data={"is_main_photo": "true", "display_order": "3"},
+                    headers=self.headers,
+                )
+
+            self.assertEqual(201, response.status_code)
+            self.assertTrue(any((uploads_root / "webp").iterdir()))
+            self.assertTrue(any((uploads_root / "thumb").iterdir()))
+            self.assertTrue(any((uploads_root / "particle_map").iterdir()))
+
+        with SessionLocal() as session:
+            photo = session.get(Photo, response.json()["id"])
+            assert photo is not None
+            self.assertTrue(photo.is_main_photo)
+            self.assertEqual(3, photo.display_order)
+
+    def test_admin_photo_delete_removes_database_row_and_files(self) -> None:
+        with TemporaryDirectory() as temporary_directory:
+            uploads_root = Path(temporary_directory)
+            paths = {
+                "original": uploads_root / "original" / "photo.jpg",
+                "webp": uploads_root / "webp" / "photo.webp",
+                "thumbnail": uploads_root / "thumb" / "photo.webp",
+                "particle_map": uploads_root / "particle_map" / "photo.json",
+            }
+            for path in paths.values():
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b"test")
+
+            with SessionLocal() as session:
+                photo = Photo(
+                    original_filename="photo.jpg",
+                    original_path="uploads/original/photo.jpg",
+                    webp_path="uploads/webp/photo.webp",
+                    thumbnail_path="uploads/thumb/photo.webp",
+                    particle_map_path="uploads/particle_map/photo.json",
+                )
+                session.add(photo)
+                session.commit()
+                session.refresh(photo)
+                photo_id = photo.id
+
+            with patch("app.api.photos.UPLOADS_ROOT", uploads_root):
+                response = self.client.delete(
+                    f"/api/admin/photos/{photo_id}", headers=self.headers
+                )
+
+            self.assertEqual({"deleted": True}, response.json())
+            self.assertTrue(all(not path.exists() for path in paths.values()))
+            with SessionLocal() as session:
+                self.assertIsNone(session.get(Photo, photo_id))
+
+    def test_admin_photo_patch_updates_order_and_main_status(self) -> None:
+        with SessionLocal() as session:
+            session.query(Photo).delete()
+            old_main = Photo(
+                original_filename="old.jpg",
+                original_path="uploads/original/old.jpg",
+                webp_path="uploads/webp/old.webp",
+                thumbnail_path="uploads/thumb/old.webp",
+                particle_map_path="uploads/particle_map/old.json",
+                is_main_photo=True,
+            )
+            target = Photo(
+                original_filename="target.jpg",
+                original_path="uploads/original/target.jpg",
+                webp_path="uploads/webp/target.webp",
+                thumbnail_path="uploads/thumb/target.webp",
+                particle_map_path="uploads/particle_map/target.json",
+            )
+            session.add_all([old_main, target])
+            session.commit()
+            session.refresh(target)
+            target_id = target.id
+
+        response = self.client.patch(
+            f"/api/admin/photos/{target_id}",
+            json={"is_main_photo": True, "display_order": 5},
+            headers=self.headers,
+        )
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(5, response.json()["display_order"])
+        self.assertTrue(response.json()["is_main_photo"])
+        with SessionLocal() as session:
+            self.assertEqual(1, session.query(Photo).filter_by(is_main_photo=True).count())
+
+    def test_admin_music_upload_saves_file_and_deactivates_previous(self) -> None:
+        with SessionLocal() as session:
+            session.query(MusicTrack).delete()
+            session.add(
+                MusicTrack(
+                    original_filename="old.mp3",
+                    music_path="uploads/music/old.mp3",
+                    is_active=True,
+                )
+            )
+            session.commit()
+
+        with TemporaryDirectory() as temporary_directory:
+            uploads_root = Path(temporary_directory)
+            with patch("app.api.music.UPLOADS_ROOT", uploads_root):
+                response = self.client.post(
+                    "/api/admin/music",
+                    files={"file": ("new.mp3", b"small audio", "audio/mpeg")},
+                    headers=self.headers,
+                )
+
+            self.assertEqual(201, response.status_code)
+            self.assertTrue(any((uploads_root / "music").iterdir()))
+
+        with SessionLocal() as session:
+            tracks = session.query(MusicTrack).order_by(MusicTrack.id).all()
+            self.assertEqual(2, len(tracks))
+            self.assertFalse(tracks[0].is_active)
+            self.assertTrue(tracks[1].is_active)
 
 
 if __name__ == "__main__":

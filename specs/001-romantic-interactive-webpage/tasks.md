@@ -247,54 +247,54 @@
 
 ### 照片上传处理（细粒度）
 
-- [ ] T042 创建文件验证服务（格式、大小）
+- [x] T042 创建文件验证服务（格式、大小）
   - **文件**: `backend/app/services/image_processor.py`
   - **标准**: 验证 jpg/jpeg/png/webp ≤10MB, mp3/m4a/wav ≤20MB
   - **验证**: Python 测试脚本验证有效/无效文件
 
-- [ ] T043 创建 EXIF 移除函数
+- [x] T043 创建 EXIF 移除函数
   - **文件**: `backend/app/services/image_processor.py`
   - **标准**: EXIF 数据完全从图像移除
   - **验证**: 处理测试图像，检查输出无 EXIF
 
-- [ ] T044 创建 WebP 转换函数（质量 85）
+- [x] T044 创建 WebP 转换函数（质量 85）
   - **文件**: `backend/app/services/image_processor.py`
   - **标准**: 图像转换为质量 85 的 WebP
   - **验证**: 处理测试图像，输出为 WebP 格式
 
-- [ ] T045 创建缩略图生成函数（高度 300px）
+- [x] T045 创建缩略图生成函数（高度 300px）
   - **文件**: `backend/app/services/image_processor.py`
   - **标准**: 缩略图高度 300px，宽度等比例
   - **验证**: 处理测试图像，缩略图尺寸正确
 
-- [ ] T046 创建粒子图生成函数
+- [x] T046 创建粒子图生成函数
   - **文件**: `backend/app/services/particle_map.py`
   - **标准**: 生成 {x, y, color} 位置的 JSON 数组
   - **验证**: 处理测试图像，输出 JSON 结构正确
 
-- [ ] T047 创建完整照片处理流水线
+- [x] T047 创建完整照片处理流水线
   - **文件**: `backend/app/services/image_processor.py`
   - **标准**: 组合：EXIF → WebP → Thumb → ParticleMap
   - **验证**: 上传测试照片，所有输出已生成
 
-- [ ] T048 创建 POST /api/admin/photos 上传端点
+- [x] T048 创建 POST /api/admin/photos 上传端点
   - **文件**: `backend/app/api/photos.py`
   - **标准**: 接收 multipart 文件，处理，保存到 DB 和 uploads/
   - **验证**: `curl -X POST -F "file=@test.jpg" localhost:8000/api/admin/photos`
 
-- [ ] T049 创建 DELETE /api/admin/photos/{id} 端点
+- [x] T049 创建 DELETE /api/admin/photos/{id} 端点
   - **文件**: `backend/app/api/photos.py`
   - **标准**: 照片从 DB 删除，文件移除
   - **验证**: `curl -X DELETE localhost:8000/api/admin/photos/1`
 
-- [ ] T050 创建 PATCH /api/admin/photos/{id} 端点
+- [x] T050 创建 PATCH /api/admin/photos/{id} 端点
   - **文件**: `backend/app/api/photos.py`
   - **标准**: 更新 display_order, is_main_photo
   - **验证**: `curl -X PATCH localhost:8000/api/admin/photos/1 -d '{"is_main_photo":true}'`
 
 ### 音乐上传
 
-- [ ] T051 创建 POST /api/admin/music 上传端点
+- [x] T051 创建 POST /api/admin/music 上传端点
   - **文件**: `backend/app/api/music.py`
   - **标准**: 接收音频文件，保存到 uploads/music/，停用之前的
   - **验证**: `curl -X POST -F "file=@test.mp3" localhost:8000/api/admin/music`

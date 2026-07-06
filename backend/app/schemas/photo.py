@@ -19,3 +19,8 @@ class PhotoResponse(BaseModel):
     display_order: int
     is_main_photo: bool
     created_at: datetime
+
+
+class PhotoUpdate(BaseModel):
+    display_order: int | None = None
+    is_main_photo: bool | None = None
