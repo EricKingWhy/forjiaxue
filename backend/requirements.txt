@@ -8,3 +8,4 @@ pyjwt
 passlib
 python-dotenv
 pydantic-settings
+httpx2

@@ -176,42 +176,42 @@
 
 ### 公开 API 端点
 
-- [ ] T029 创建 GET /api/photos 端点
+- [x] T029 创建 GET /api/photos 端点
   - **文件**: `backend/app/api/photos.py`, `backend/app/main.py`
   - **标准**: 返回 main_photo 和 wall_photos 数组
   - **验证**: `curl localhost:8000/api/photos`
 
-- [ ] T030 创建 GET /api/music 端点
+- [x] T030 创建 GET /api/music 端点
   - **文件**: `backend/app/api/music.py`, `backend/app/main.py`
   - **标准**: 返回活跃音乐轨道 URL
   - **验证**: `curl localhost:8000/api/music`
 
-- [ ] T031 创建 GET /api/config 端点
+- [x] T031 创建 GET /api/config 端点
   - **文件**: `backend/app/api/config.py`, `backend/app/main.py`
   - **标准**: 返回 visitor_password_enabled, particle_tier_default 等
   - **验证**: `curl localhost:8000/api/config`
 
-- [ ] T032 创建 POST /api/config/verify-password 端点
+- [x] T032 创建 POST /api/config/verify-password 端点
   - **文件**: `backend/app/api/config.py`, `backend/app/services/auth.py`
   - **标准**: 返回 {valid: true/false} 密码检查结果
   - **验证**: `curl -X POST localhost:8000/api/config/verify-password -d '{"password":"test"}'`
 
-- [ ] T033 创建 GET /api/blessing 端点
+- [x] T033 创建 GET /api/blessing 端点
   - **文件**: `backend/app/api/blessing.py`, `backend/app/main.py`
   - **标准**: 返回 paragraphs 数组用于打字机效果
   - **验证**: `curl localhost:8000/api/blessing`
 
-- [ ] T034 创建 POST /api/messages 端点（秘密消息）
+- [x] T034 创建 POST /api/messages 端点（秘密消息）
   - **文件**: `backend/app/api/messages.py`, `backend/app/main.py`
   - **标准**: 创建 SecretMessage，返回 id 和 timestamp
   - **验证**: `curl -X POST localhost:8000/api/messages -d '{"content":"test"}'`
 
-- [ ] T035 创建 POST /api/stats/visit 端点（进入动作）
+- [x] T035 创建 POST /api/stats/visit 端点（进入动作）
   - **文件**: `backend/app/api/stats.py`, `backend/app/main.py`
   - **标准**: 创建 VisitEvent 包含 ip_hash, device_type
   - **验证**: `curl -X POST localhost:8000/api/stats/visit -d '{"ip_hash":"abc","device_type":"mobile","action":"enter"}'`
 
-- [ ] T036 创建 POST /api/stats/visit 端点（退出动作）
+- [x] T036 创建 POST /api/stats/visit 端点（退出动作）
   - **文件**: `backend/app/api/stats.py`
   - **标准**: 更新 VisitEvent 包含 screens_completed, duration
   - **验证**: `curl -X POST localhost:8000/api/stats/visit -d '{"ip_hash":"abc","action":"exit","screens_completed":["entry"]}'`
