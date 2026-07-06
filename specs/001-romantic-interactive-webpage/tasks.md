@@ -102,42 +102,42 @@
 
 ### 模型（细粒度）
 
-- [ ] T015 [P] 创建 Photo 模型
+- [x] T015 [P] 创建 Photo 模型
   - **文件**: `backend/app/models/photo.py`
   - **标准**: Photo 表按 data-model.md 创建所有字段
   - **验证**: SQLite 检查器显示 photo 表
 
-- [ ] T016 [P] 创建 MusicTrack 模型
+- [x] T016 [P] 创建 MusicTrack 模型
   - **文件**: `backend/app/models/music.py`
   - **标准**: MusicTrack 表创建所有字段
   - **验证**: SQLite 检查器显示 music_track 表
 
-- [ ] T017 [P] 创建 BlessingText 模型
+- [x] T017 [P] 创建 BlessingText 模型
   - **文件**: `backend/app/models/blessing.py`
   - **标准**: BlessingText 表创建 paragraphs JSON 字段
   - **验证**: SQLite 检查器显示 blessing_text 表
 
-- [ ] T018 [P] 创建 VisitEvent 模型
+- [x] T018 [P] 创建 VisitEvent 模型
   - **文件**: `backend/app/models/visit.py`
   - **标准**: VisitEvent 表创建 ip_hash, screens_completed 字段
   - **验证**: SQLite 检查器显示 visit_event 表
 
-- [ ] T019 [P] 创建 SecretMessage 模型
+- [x] T019 [P] 创建 SecretMessage 模型
   - **文件**: `backend/app/models/message.py`
   - **标准**: SecretMessage 表创建 is_read 字段
   - **验证**: SQLite 检查器显示 secret_message 表
 
-- [ ] T020 [P] 创建 AppConfig 模型
+- [x] T020 [P] 创建 AppConfig 模型
   - **文件**: `backend/app/models/config.py`
   - **标准**: AppConfig 表作为单例创建 (id=1)
   - **验证**: SQLite 检查器显示 app_config 表
 
-- [ ] T021 初始化 AppConfig 单例默认值
+- [x] T021 初始化 AppConfig 单例默认值
   - **文件**: `backend/app/database.py` 或 seed 脚本
   - **标准**: AppConfig 行存在 id=1，默认值已设置
   - **验证**: `curl localhost:8000/api/config`
 
-- [ ] T022 初始化默认 BlessingText 占位内容
+- [x] T022 初始化默认 BlessingText 占位内容
   - **文件**: `backend/app/database.py` 或 seed 脚本
   - **标准**: BlessingText 行存在占位 paragraphs
   - **验证**: `curl localhost:8000/api/blessing`
