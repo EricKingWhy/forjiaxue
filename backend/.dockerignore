@@ -1,0 +1,19 @@
+# Backend build context exclusions (T154)
+__pycache__
+*.pyc
+*.pyo
+data/
+uploads/
+.venv
+venv
+env/
+.env
+.git
+*.log
+Dockerfile
+.dockerignore
+.pytest_cache
+.mypy_cache
+.ruff_cache
+*.egg-info
+*.tmp

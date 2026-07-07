@@ -1,0 +1,17 @@
+# Frontend build context exclusions (T154)
+node_modules
+.next
+.next-prod
+.git
+.env
+.env.local
+.env.*.local
+*.log
+npm-debug.log*
+coverage
+*.tsbuildinfo
+Dockerfile
+.dockerignore
+.agents
+skills-lock.json
+.playwright

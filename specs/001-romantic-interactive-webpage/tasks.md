@@ -695,11 +695,11 @@
 
 ### Phase 12：Docker 部署（T151-T161）
 
-- [ ] T151 创建多阶段前端 Dockerfile — **文件**: `frontend/Dockerfile` — **标准**: production standalone、非 root、无 node_modules 入 context — **验证**: `docker build -t forjiaxue-frontend frontend`
-- [ ] T152 创建后端 Dockerfile — **文件**: `backend/Dockerfile` — **标准**: Python 3.11 slim、非 root、持久目录可写 — **验证**: `docker build -t forjiaxue-backend backend`
-- [ ] T153 创建 compose 编排 — **文件**: `docker-compose.yml` — **标准**: 前后端、网络、uploads/data volumes 和依赖健康检查 — **验证**: `docker compose config`
-- [ ] T154 创建根/前后端 `.dockerignore` — **文件**: `.dockerignore` 等 — **标准**: 排除 Git、构建产物、数据库、uploads、env、测试缓存 — **验证**: `docker build` context 不含禁入目录
-- [ ] T155 创建环境变量模板 — **文件**: `.env.example`、README — **标准**: 仅占位符，无密钥，说明 API origin/CORS/admin secret — **验证**: `git grep -nE '(password|secret|token)=' -- .env.example`
+- [x] T151 创建多阶段前端 Dockerfile — **文件**: `frontend/Dockerfile` — **标准**: production standalone、非 root、无 node_modules 入 context — **验证**: `docker build -t forjiaxue-frontend frontend`
+- [x] T152 创建后端 Dockerfile — **文件**: `backend/Dockerfile` — **标准**: Python 3.11 slim、非 root、持久目录可写 — **验证**: `docker build -t forjiaxue-backend backend`
+- [x] T153 创建 compose 编排 — **文件**: `docker-compose.yml` — **标准**: 前后端、网络、uploads/data volumes 和依赖健康检查 — **验证**: `docker compose config`
+- [x] T154 创建根/前后端 `.dockerignore` — **文件**: `.dockerignore` 等 — **标准**: 排除 Git、构建产物、数据库、uploads、env、测试缓存 — **验证**: `docker build` context 不含禁入目录
+- [x] T155 创建环境变量模板 — **文件**: `.env.example`、README — **标准**: 仅占位符，无密钥，说明 API origin/CORS/admin secret — **验证**: `git grep -nE '(password|secret|token)=' -- .env.example`
 - [ ] T156 启动完整 Compose — **文件**: `docker-compose.yml` — **标准**: `up --build` 后容器均 healthy — **验证**: `docker compose up --build -d && docker compose ps`
 - [ ] T157 验证容器前端 — **文件**: `scripts/verify-deployment.ps1` — **标准**: `/ForJiaXue` 返回 200 — **验证**: `Invoke-WebRequest http://localhost:3000/ForJiaXue`
 - [ ] T158 验证容器后端 APIs — **文件**: 同脚本 — **标准**: health/photos/music/config/blessing 均成功 — **验证**: 运行 PowerShell 验证脚本
