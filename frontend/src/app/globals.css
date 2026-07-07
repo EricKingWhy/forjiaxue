@@ -24,3 +24,24 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes petal-fall {
+  0% { opacity: 0; transform: translate3d(0, -8vh, 0) rotate(0deg) scale(.75); }
+  12% { opacity: .55; }
+  78% { opacity: .34; }
+  100% { opacity: 0; transform: translate3d(var(--petal-drift), 112vh, 0) rotate(430deg) scale(1.05); }
+}
+
+.entry-petal { animation: petal-fall linear infinite; }
+.entry-aurora {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(126, 46, 67, .24), transparent 35%),
+    radial-gradient(circle at 20% 85%, rgba(113, 60, 43, .1), transparent 30%);
+}
+.entry-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry-petal { animation: none; display: none; }
+}

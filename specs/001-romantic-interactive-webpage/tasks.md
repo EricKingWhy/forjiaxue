@@ -653,10 +653,10 @@
 
 ### Phase 7：入口动画（T124-T127）
 
-- [ ] T124 创建轻量 SVG 花瓣资产 — **文件**: `frontend/public/assets/petal.svg` — **标准**: 矢量、无外部版权资产、体积小 — **验证**: `Get-Item public/assets/petal.svg`
-- [ ] T125 创建分层花瓣与星光动画 — **文件**: `frontend/src/components/entry/PetalField.tsx` — **标准**: 随机节奏、低透明度、支持 reduced-motion — **验证**: 浏览器截图和 reduced-motion 检查
-- [ ] T126 重做高级感入口主视觉和开始按钮 — **文件**: `EntryScreen.tsx` — **标准**: 深酒红/玫瑰金、克制排版、无俗艳渐变 — **验证**: 桌面与移动截图审查
-- [ ] T127 点击开始时播放音乐并过渡粒子屏 — **文件**: `EntryScreen.tsx`、`page.tsx` — **标准**: 同一用户手势触发 audio resume 与平滑过渡 — **验证**: 浏览器点击一次完成两项动作
+- [x] T124 创建轻量 SVG 花瓣资产 — **文件**: `frontend/public/assets/petal.svg` — **标准**: 矢量、无外部版权资产、体积小 — **验证**: `Get-Item public/assets/petal.svg`
+- [x] T125 创建分层花瓣与星光动画 — **文件**: `frontend/src/components/entry/PetalField.tsx` — **标准**: 随机节奏、低透明度、支持 reduced-motion — **验证**: 浏览器截图和 reduced-motion 检查
+- [x] T126 重做高级感入口主视觉和开始按钮 — **文件**: `EntryScreen.tsx` — **标准**: 深酒红/玫瑰金、克制排版、无俗艳渐变 — **验证**: 桌面与移动截图审查
+- [x] T127 点击开始时播放音乐并过渡粒子屏 — **文件**: `EntryScreen.tsx`、`page.tsx` — **标准**: 同一用户手势触发 audio resume 与平滑过渡 — **验证**: 浏览器点击一次完成两项动作
 
 ### Phase 8：手势解锁（T128-T136）
 
