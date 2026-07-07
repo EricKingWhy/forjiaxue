@@ -220,13 +220,27 @@
             camera: { z: 50 },
             
             preload: {
-                autoScanLocal: true,
-                scanCount: 200, 
+                autoScanLocal: false,
+                scanCount: 0, 
                 images: [
-                    'https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=600', 
-                    'https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?q=80&w=600',
-                    'https://images.unsplash.com/photo-1512389142860-9c449e58a543?q=80&w=600', 
-                    'https://images.unsplash.com/photo-1482638588057-dce9509db949?q=80&w=600'
+                    './images/f6da3cec42303100546fae69447d8382.jpg',
+                    './images/f336903dfc0909359f6222c410c9219a.jpg',
+                    './images/735f6ed718cb70c32ca9064f2bd942d5.jpg',
+                    './images/0a5a9c61965ddd1624015e554c7d1532.jpg',
+                    './images/3df433b3e91ef19f76c84fb852683c7d.jpg',
+                    './images/b565c07bd77a2f39425a54d6237d2fe9.jpg',
+                    './images/5988e368ad6bb4c2d47d8134657cb44a.jpg',
+                    './images/5f90a61972e66b29ca42bd7bbe4725a7.jpg',
+                    './images/7eb43f747ba031bd7b047d7035f197b7.jpg',
+                    './images/a78859842e0f2967c81a46dcb39b2435.jpg',
+                    './images/0709af1287d170127cb1ce5089ab47c7.jpg',
+                    './images/80635e9fc4e09c78c2130f97a3941692.jpg',
+                    './images/8a04f8e3305b41b942811ec64d11d5f1.jpg',
+                    './images/a36488c1cca6933f23d75ead611a5891.jpg',
+                    './images/d9776da6246b48b2108201700b4b4d5b.jpg',
+                    './images/8b7b87edb60d1e8851695a6689132e79.jpg',
+                    './images/d0f82be2d9df09c4dec5569f66a80d60.jpg',
+                    './images/fb0a474fa3d970940fbb08d1f4196e53.jpg'
                 ]
             }
         };
@@ -267,41 +281,16 @@
             animate();
         }
 
-        // --- 增强版图片加载系统 ---
+        // --- 图片加载系统 ---
         function loadPredefinedImages() {
             const loader = new THREE.TextureLoader();
-            
-            // Load from backend API (已上传的照片)
-            fetch('/api/photos')
-                .then(res => res.json())
-                .then(data => {
-                    const photos = data.wall_photos || [];
-                    photos.forEach(photo => {
-                        loader.load(photo.webp_url, 
-                            (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); },
-                            undefined,
-                            (e) => { console.log(`Skipped: ${photo.webp_url}`); }
-                        );
-                    });
-                    if (data.main_photo && data.main_photo.webp_url) {
-                        loader.load(data.main_photo.webp_url, 
-                            (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); },
-                            undefined,
-                            (e) => { console.log('Skipped main photo'); }
-                        );
-                    }
-                })
-                .catch(err => {
-                    console.error('Failed to load photos from backend:', err);
-                    // Fallback: load predefined Unsplash images
-                    CONFIG.preload.images.forEach(url => {
-                        loader.load(url, 
-                            (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); },
-                            undefined,
-                            (e) => { console.log(`Skipped: ${url}`); }
-                        );
-                    });
-                });
+            CONFIG.preload.images.forEach(url => {
+                loader.load(url, 
+                    (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); },
+                    undefined,
+                    (e) => { console.log('Skipped: ' + url); }
+                );
+            });
         }
 
         function initThree() {
