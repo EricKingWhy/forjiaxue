@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import type { BufferGeometry, ShaderMaterial } from "three";
 
 import { createParticleGeometry } from "@/three/geometry/ParticleGeometry";
@@ -29,9 +29,7 @@ import { useAudioStore, useConfigStore } from "@/stores";
 import { AudioStars } from "./AudioStars";
 import { SceneErrorBoundary } from "@/components/ui/SceneErrorBoundary";
 
-function isPointerActive(pointer: NormalizedPointer): boolean {
-  return Math.abs(pointer.x) <= 1 && Math.abs(pointer.y) <= 1;
-}
+// isPointerActive is now provided by usePointerPosition (ref-based, no per-move re-render).
 
 /**
  * Scales a parsed particle map (pixel-space, centered) into the world-space
@@ -64,7 +62,7 @@ function toParticleTargets(map: PixelParticle[]): ParticleTargets {
 interface SceneProps {
   particleCount: number;
   enableBloom: boolean;
-  pointer: NormalizedPointer;
+  pointerRef: RefObject<NormalizedPointer>;
   isPointerActive: boolean;
   targetPositions: Float32Array | null;
   targetColors?: Float32Array;
@@ -73,7 +71,7 @@ interface SceneProps {
 function ParticleScene({
   particleCount,
   enableBloom,
-  pointer,
+  pointerRef,
   isPointerActive,
   targetPositions,
   targetColors,
@@ -96,16 +94,7 @@ function ParticleScene({
   useProgressAnimation(materialRef, true);
   useScatterReset(materialRef, isPointerActive);
 
-  // Push the latest normalized pointer into the shader uniform.
-  useEffect(() => {
-    const uniform = materialRef.current?.uniforms.pointer;
-    if (uniform) {
-      (uniform.value as { set: (x: number, y: number) => void }).set(
-        pointer.x,
-        pointer.y,
-      );
-    }
-  }, [pointer]);
+  // Pointer uniform is pushed inside useFrame (ref-based, no re-render).
 
   // Bloom post-processing composer. When disabled the scene renders directly.
   const bloom = useMemo<BloomComposer | null>(() => {
@@ -130,6 +119,13 @@ function ParticleScene({
   // renderPriority=1 disables R3F's automatic render so the composer (or a
   // manual gl.render) owns the frame, matching FR-010/011 and SC-003.
   useFrame((_state, delta) => {
+    const pointerUniform = materialRef.current?.uniforms.pointer;
+    if (pointerUniform) {
+      (pointerUniform.value as { set: (x: number, y: number) => void }).set(
+        pointerRef.current.x,
+        pointerRef.current.y,
+      );
+    }
     const audio = useAudioStore.getState();
     const audioUniform = materialRef.current?.uniforms.audioIntensity;
     if (audioUniform) {
@@ -161,7 +157,7 @@ export function ParticleCanvas({ active = true }: { active?: boolean } = {}) {
   const defaultTier = useConfigStore((state) => state.particle_tier);
   const bloomEnabled = useConfigStore((state) => state.bloom_enabled);
   const { tier } = usePerformance(defaultTier);
-  const { pointer, onPointerMove, onPointerLeave } = usePointerPosition();
+  const { pointerRef, isPointerActive, onPointerMove, onPointerLeave } = usePointerPosition();
   const [targetData, setTargetData] = useState<ParticleTargets | null>(null);
 
   const fallbackCount = getParticleCount(tier);
@@ -219,8 +215,8 @@ export function ParticleCanvas({ active = true }: { active?: boolean } = {}) {
         <ParticleScene
           particleCount={particleCount}
           enableBloom={enableBloom}
-          pointer={pointer}
-          isPointerActive={isPointerActive(pointer)}
+          pointerRef={pointerRef}
+          isPointerActive={isPointerActive}
           targetPositions={targetData?.positions ?? fallbackTargets}
           targetColors={targetData?.colors}
         />
