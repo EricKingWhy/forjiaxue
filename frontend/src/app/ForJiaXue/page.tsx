@@ -63,8 +63,7 @@ export default function ForJiaXuePage() {
         <NextButton targetId="unlock" />
       </section>
       <section id="unlock" className="relative min-h-screen snap-start">
-        <UnlockScreen />
-        <NextButton targetId="finale" label="解锁结局" />
+        <UnlockScreen onUnlock={() => scrollToScreen("finale")} />
       </section>
       <section id="finale" className="min-h-screen snap-start">
         <FinaleScreen />

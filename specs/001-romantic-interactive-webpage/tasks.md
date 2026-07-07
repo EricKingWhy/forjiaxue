@@ -660,15 +660,15 @@
 
 ### Phase 8：手势解锁（T128-T136）
 
-- [ ] T128 接入 MediaPipe Hand Landmarker — **文件**: `frontend/src/lib/gesture/hand-landmarker.ts` — **标准**: 延迟加载模型且不阻塞首屏 — **验证**: `npx tsc --noEmit && npm run build`
-- [ ] T129 创建摄像头帧关键点检测 hook — **文件**: `frontend/src/hooks/useGesture.ts` — **标准**: 单一流、卸载释放 tracks — **验证**: 浏览器授权后可看到关键点状态
-- [ ] T130 定义双手比心几何特征 — **文件**: `frontend/src/lib/gesture/heart-gesture.ts`、对应测试 — **标准**: 基于拇指/食指距离与手掌方向 — **验证**: `node --no-warnings --experimental-strip-types --test src/lib/gesture/heart-gesture.test.mjs`
-- [ ] T131 实现带置信度和连续帧的匹配 — **文件**: 同上 — **标准**: 连续命中才成功，降低误触 — **验证**: 同上测试文件
-- [ ] T132 记录失败尝试次数 — **文件**: `frontend/src/stores/gestureStore.ts` — **标准**: 每次完整尝试仅计一次 — **验证**: `npx tsc --noEmit`
-- [ ] T133 创建相机预览与引导反馈 — **文件**: `frontend/src/components/unlock/GestureUnlock.tsx` — **标准**: 清晰说明姿势和实时状态 — **验证**: 浏览器授权流程
-- [ ] T134 四次失败后显示降级按钮 — **文件**: 同上 — **标准**: 文案来自 config 且用户不会被卡死 — **验证**: 模拟四次失败后按钮可见
-- [ ] T135 处理拒绝/无摄像头/模型失败 — **文件**: 同上 — **标准**: 立即提供降级继续路径 — **验证**: 浏览器拒绝权限后仍可进入结局
-- [ ] T136 解锁成功过渡结局 — **文件**: `UnlockScreen.tsx`、`screenStore.ts` — **标准**: 成功仅触发一次并平滑进入 finale — **验证**: 浏览器模拟成功
+- [x] T128 接入 MediaPipe Hand Landmarker — **文件**: `frontend/src/lib/gesture/hand-landmarker.ts` — **标准**: 延迟加载模型且不阻塞首屏 — **验证**: `npx tsc --noEmit && npm run build`
+- [x] T129 创建摄像头帧关键点检测 hook — **文件**: `frontend/src/hooks/useGesture.ts` — **标准**: 单一流、卸载释放 tracks — **验证**: 浏览器授权后可看到关键点状态
+- [x] T130 定义双手比心几何特征 — **文件**: `frontend/src/lib/gesture/heart-gesture.ts`、对应测试 — **标准**: 基于拇指/食指距离与手掌方向 — **验证**: `node --no-warnings --experimental-strip-types --test src/lib/gesture/heart-gesture.test.mjs`
+- [x] T131 实现带置信度和连续帧的匹配 — **文件**: 同上 — **标准**: 连续命中才成功，降低误触 — **验证**: 同上测试文件
+- [x] T132 记录失败尝试次数 — **文件**: `frontend/src/stores/gestureStore.ts` — **标准**: 每次完整尝试仅计一次 — **验证**: `npx tsc --noEmit`
+- [x] T133 创建相机预览与引导反馈 — **文件**: `frontend/src/components/unlock/GestureUnlock.tsx` — **标准**: 清晰说明姿势和实时状态 — **验证**: 浏览器授权流程
+- [x] T134 四次失败后显示降级按钮 — **文件**: 同上 — **标准**: 文案来自 config 且用户不会被卡死 — **验证**: 模拟四次失败后按钮可见
+- [x] T135 处理拒绝/无摄像头/模型失败 — **文件**: 同上 — **标准**: 立即提供降级继续路径 — **验证**: 浏览器拒绝权限后仍可进入结局
+- [x] T136 解锁成功过渡结局 — **文件**: `UnlockScreen.tsx`、`screenStore.ts` — **标准**: 成功仅触发一次并平滑进入 finale — **验证**: 浏览器模拟成功
 
 ### Phase 9：结局（T137-T141）
 
