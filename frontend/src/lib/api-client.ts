@@ -1,4 +1,5 @@
 import type {
+  BlessingResponse,
   ConfigResponse,
   MusicResponse,
   PasswordVerifyResponse,
@@ -38,6 +39,10 @@ export function getMusic(): Promise<MusicResponse | null> {
 
 export function getConfig(): Promise<ConfigResponse> {
   return request("/api/config");
+}
+
+export function getBlessing(): Promise<BlessingResponse> {
+  return request("/api/blessing");
 }
 
 export function verifyPassword(

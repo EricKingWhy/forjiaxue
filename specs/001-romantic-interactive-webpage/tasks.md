@@ -1,4 +1,4 @@
-# 任务列表：ForJiaXue - 浪漫互动网页
+﻿# 任务列表：ForJiaXue - 浪漫互动网页
 
 **输入**: 设计文档来自 `/specs/001-romantic-interactive-webpage/`
 
@@ -672,11 +672,11 @@
 
 ### Phase 9：结局（T137-T141）
 
-- [ ] T137 创建粒子玫瑰聚合序列 — **文件**: `frontend/src/components/finale/FinaleParticles.tsx` — **标准**: 四周光尘聚成克制玫瑰轮廓 — **验证**: 浏览器观察完整动画且 Console 无 WebGL 错误
-- [ ] T138 实现比心后玫瑰破碎并重组成主照片 — **文件**: 同上 — **标准**: 过渡连贯、无上传照片时使用抽象光影 fallback — **验证**: 浏览器运行两种数据状态
-- [ ] T139 获取 `/api/blessing` 段落并处理失败 — **文件**: `FinaleScreen.tsx` — **标准**: API 文案优先，失败显示克制默认祝福 — **验证**: 正常与断网两种浏览器路径
-- [ ] T140 创建可取消的打字机组件 — **文件**: `frontend/src/components/finale/TypewriterText.tsx`、对应测试 — **标准**: 支持中文、卸载清理 timer、reduced-motion 立即显示 — **验证**: `node --no-warnings --experimental-strip-types --test src/components/finale/TypewriterText.test.mjs`
-- [ ] T141 顺序展示多段祝福并完成结局构图 — **文件**: `FinaleScreen.tsx` — **标准**: 文字层级、留白、照片和粒子互不遮挡 — **验证**: 桌面/390px 截图审查
+- [x] T137 创建粒子玫瑰聚合序列 — **文件**: `frontend/src/components/finale/FinaleParticles.tsx` — **标准**: 四周光尘聚成克制玫瑰轮廓 — **验证**: 浏览器观察完整动画且 Console 无 WebGL 错误
+- [x] T138 实现比心后玫瑰破碎并重组成主照片 — **文件**: 同上 — **标准**: 过渡连贯、无上传照片时使用抽象光影 fallback — **验证**: 浏览器运行两种数据状态
+- [x] T139 获取 `/api/blessing` 段落并处理失败 — **文件**: `FinaleScreen.tsx` — **标准**: API 文案优先，失败显示克制默认祝福 — **验证**: 正常与断网两种浏览器路径
+- [x] T140 创建可取消的打字机组件 — **文件**: `frontend/src/components/finale/TypewriterText.tsx`、对应测试 — **标准**: 支持中文、卸载清理 timer、reduced-motion 立即显示 — **验证**: `node --no-warnings --experimental-strip-types --test src/components/finale/TypewriterText.test.mjs`
+- [x] T141 顺序展示多段祝福并完成结局构图 — **文件**: `FinaleScreen.tsx` — **标准**: 文字层级、留白、照片和粒子互不遮挡 — **验证**: 桌面/390px 截图审查
 
 ### Phase 10：秘密消息（T142-T144）
 
