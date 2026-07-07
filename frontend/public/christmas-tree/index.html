@@ -270,31 +270,38 @@
         // --- 增强版图片加载系统 ---
         function loadPredefinedImages() {
             const loader = new THREE.TextureLoader();
-            CONFIG.preload.images.forEach(url => {
-                loader.load(url, 
-                    (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); },
-                    undefined,
-                    (e) => { console.log(`Skipped: ${url}`); }
-                );
-            });
-
-            if (CONFIG.preload.autoScanLocal) {
-                for (let i = 1; i <= CONFIG.preload.scanCount; i++) {
-                    const pathJpg = `./images/(${i}).jpg`;
-                    const pathPng = `./images/(${i}).png`;
-                    loader.load(pathJpg, 
-                        (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); },
-                        undefined,
-                        () => {
-                             loader.load(pathPng, 
-                                (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); },
-                                undefined,
-                                () => {} 
-                             );
-                        }
-                    );
-                }
-            }
+            
+            // Load from backend API (已上传的照片)
+            fetch('/api/photos')
+                .then(res => res.json())
+                .then(data => {
+                    const photos = data.wall_photos || [];
+                    photos.forEach(photo => {
+                        loader.load(photo.webp_url, 
+                            (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); },
+                            undefined,
+                            (e) => { console.log(`Skipped: ${photo.webp_url}`); }
+                        );
+                    });
+                    if (data.main_photo && data.main_photo.webp_url) {
+                        loader.load(data.main_photo.webp_url, 
+                            (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); },
+                            undefined,
+                            (e) => { console.log('Skipped main photo'); }
+                        );
+                    }
+                })
+                .catch(err => {
+                    console.error('Failed to load photos from backend:', err);
+                    // Fallback: load predefined Unsplash images
+                    CONFIG.preload.images.forEach(url => {
+                        loader.load(url, 
+                            (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); },
+                            undefined,
+                            (e) => { console.log(`Skipped: ${url}`); }
+                        );
+                    });
+                });
         }
 
         function initThree() {
@@ -661,14 +668,22 @@
             
             Array.from(files).forEach(f => {
                 if (!f.type.startsWith('image/')) return;
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    new THREE.TextureLoader().load(ev.target.result, (t) => {
-                        t.colorSpace = THREE.SRGBColorSpace;
-                        addPhotoToScene(t);
-                    });
-                }
-                reader.readAsDataURL(f);
+                const formData = new FormData();
+                formData.append('file', f);
+                fetch('/api/photos/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.webp_url) {
+                        new THREE.TextureLoader().load(data.webp_url, (t) => {
+                            t.colorSpace = THREE.SRGBColorSpace;
+                            addPhotoToScene(t);
+                        });
+                    }
+                })
+                .catch(err => console.error('Upload failed:', err));
             });
         }
 

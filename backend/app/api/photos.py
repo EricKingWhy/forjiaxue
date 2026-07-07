@@ -59,6 +59,45 @@ def get_photos(db: Session = Depends(get_db)) -> dict[str, object]:
     }
 
 
+@router.post("/photos/upload", status_code=status.HTTP_201_CREATED)
+async def upload_photo_public(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+) -> dict[str, object]:
+    """公开照片上传端点（圣诞树页面使用，无需 JWT）."""
+    filename = file.filename or "upload"
+    image_data = await file.read()
+    try:
+        outputs = process_photo(image_data, filename, UPLOADS_ROOT)
+    except (ValueError, UnidentifiedImageError, OSError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    paths = {
+        name: f"uploads/{path.parent.name}/{path.name}"
+        for name, path in outputs.items()
+    }
+    photo = Photo(
+        original_filename=filename,
+        original_path=paths["original"],
+        webp_path=paths["webp"],
+        thumbnail_path=paths["thumbnail"],
+        particle_map_path=paths["particle_map"],
+        display_order=0,
+        is_main_photo=False,
+    )
+    db.add(photo)
+    db.commit()
+    db.refresh(photo)
+    return {
+        "id": photo.id,
+        "original_filename": photo.original_filename,
+        "webp_url": _public_url(photo.webp_path),
+        "thumbnail_url": _public_url(photo.thumbnail_path),
+        "particle_map_url": _public_url(photo.particle_map_path),
+        "created_at": photo.created_at,
+    }
+
+
 @router.post(
     "/admin/photos",
     status_code=status.HTTP_201_CREATED,
