@@ -8,8 +8,12 @@ import type {
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
+export function resolveApiUrl(pathOrUrl: string): string {
+  return new URL(pathOrUrl, `${API_BASE_URL.replace(/\/$/, "")}/`).toString();
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(resolveApiUrl(path), {
     ...init,
     headers: {
       "Content-Type": "application/json",

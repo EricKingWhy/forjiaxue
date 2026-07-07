@@ -435,168 +435,168 @@
 
 ### R3F 设置
 
-- [ ] T072 在粒子屏幕创建基本 R3F Canvas
+- [x] T072 在粒子屏幕创建基本 R3F Canvas
   - **文件**: `frontend/src/components/particles/ParticleCanvas.tsx`
   - **标准**: Canvas 渲染，显示空 WebGL 场景
   - **验证**: 打开粒子屏幕，WebGL canvas 可见，无错误
 
-- [ ] T073 创建带 OrbitControls 的 Three.js 场景（用于测试）
+- [x] T073 创建带 OrbitControls 的 Three.js 场景（用于测试）
   - **文件**: `frontend/src/components/particles/ParticleCanvas.tsx`
   - **标准**: 场景带 camera, controls, 背景色
   - **验证**: Canvas 渲染，可用鼠标 orbit camera
 
 ### 粒子几何（暂无 Shader）
 
-- [ ] T074 创建随机位置的简单 Points geometry
+- [x] T074 创建随机位置的简单 Points geometry
   - **文件**: `frontend/src/three/geometry/createTestParticles.ts`
   - **标准**: 1000 个随机位置点，显示为白点
   - **验证**: Canvas 显示散布白点
 
-- [ ] T075 创建带 position attribute array 的 BufferGeometry
+- [x] T075 创建带 position attribute array 的 BufferGeometry
   - **文件**: `frontend/src/three/geometry/ParticleGeometry.ts`
   - **标准**: position attribute 为 Float32Array，数量可配置
   - **验证**: console 打印 position array 长度匹配粒子数量
 
-- [ ] T076 添加 color attribute 到 BufferGeometry
+- [x] T076 添加 color attribute 到 BufferGeometry
   - **文件**: `frontend/src/three/geometry/ParticleGeometry.ts`
   - **标准**: color attribute 为 Float32Array (RGB)，每个粒子有颜色
   - **验证**: 粒子渲染有不同颜色（暂时用 PointsMaterial）
 
-- [ ] T077 添加 size attribute 到 BufferGeometry
+- [x] T077 添加 size attribute 到 BufferGeometry
   - **文件**: `frontend/src/three/geometry/ParticleGeometry.ts`
   - **标准**: size attribute 为 Float32Array，每个粒子有大小
   - **验证**: console 打印 size array，粒子渲染有不同大小
 
 ### 图像采样（生成粒子数据）
 
-- [ ] T078 创建图像加载工具
+- [x] T078 创建图像加载工具
   - **文件**: `frontend/src/lib/image-loader.ts`
   - **标准**: 加载图像，返回 ImageData 或 canvas
   - **验证**: console 打印加载图像尺寸
 
-- [ ] T079 创建像素采样函数生成粒子位置
+- [x] T079 创建像素采样函数生成粒子位置
   - **文件**: `frontend/src/lib/particle-utils.ts`
   - **标准**: 按网格间隔采样图像，返回 {x, y, color} 数组
   - **验证**: console 打印采样数量、位置、颜色
 
-- [ ] T080 从 API particle_map JSON 创建粒子数据
+- [x] T080 从 API particle_map JSON 创建粒子数据
   - **文件**: `frontend/src/lib/particle-utils.ts`
   - **标准**: 解析 particle_map.json，创建 BufferGeometry 数据
   - **验证**: 加载测试 particle_map.json，console 打印粒子数量
 
 ### 简单 Shader Material（渐进）
 
-- [ ] T081 创建基本 vertex shader（仅位置）
+- [x] T081 创建基本 vertex shader（仅位置）
   - **文件**: `frontend/src/three/shaders/particle.vert.glsl`
   - **标准**: Vertex shader 从 position attribute 输出 gl_Position
   - **验证**: 粒子在正确位置渲染
 
-- [ ] T082 创建基本 fragment shader（仅颜色）
+- [x] T082 创建基本 fragment shader（仅颜色）
   - **文件**: `frontend/src/three/shaders/particle.frag.glsl`
   - **标准**: Fragment shader 从 color attribute 输出颜色
   - **验证**: 粒子以正确颜色渲染
 
-- [ ] T083 创建带 uniforms（color, size）的 ShaderMaterial
+- [x] T083 创建带 uniforms（color, size）的 ShaderMaterial
   - **文件**: `frontend/src/three/particle-engine/ParticleMaterial.ts`
   - **标准**: Material 使用自定义 shaders，uniforms 工作
   - **验证**: 改变 uniform 值，看到视觉变化
 
-- [ ] T084 添加 pointSize uniform 用于缩放
+- [x] T084 添加 pointSize uniform 用于缩放
   - **文件**: `frontend/src/three/shaders/particle.vert.glsl`, `frontend/src/three/particle-engine/ParticleMaterial.ts`
   - **标准**: pointSize uniform 缩放所有粒子
   - **验证**: 改变 pointSize，粒子大小变化
 
 ### 进度动画（聚合）
 
-- [ ] T085 创建 progress uniform（0.0 到 1.0）
+- [x] T085 创建 progress uniform（0.0 到 1.0）
   - **文件**: `frontend/src/three/particle-engine/ParticleMaterial.ts`
   - **标准**: progress uniform 控制聚合状态
   - **验证**: 设置 progress 为 0.5，看到中间状态
 
-- [ ] T086 创建目标位置 attribute（粒子应聚合的位置）
+- [x] T086 创建目标位置 attribute（粒子应聚合的位置）
   - **文件**: `frontend/src/three/geometry/ParticleGeometry.ts`
   - **标准**: targetPosition attribute 存储图像位置
   - **验证**: console 打印目标位置数组
 
-- [ ] T087 创建初始随机位置 attribute
+- [x] T087 创建初始随机位置 attribute
   - **文件**: `frontend/src/three/geometry/ParticleGeometry.ts`
   - **标准**: initialPosition attribute 存储散布位置
   - **验证**: console 打印初始位置数组（随机值）
 
-- [ ] T088 更新 vertex shader 基于 progress 插值
+- [x] T088 更新 vertex shader 基于 progress 插值
   - **文件**: `frontend/src/three/shaders/particle.vert.glsl`
   - **标准**: shader 中 mix(initialPosition, targetPosition, progress)
   - **验证**: 从 0 到 1 动画 progress，粒子聚合
 
-- [ ] T089 用 GSAP 创建进度动画
+- [x] T089 用 GSAP 创建进度动画
   - **文件**: `frontend/src/hooks/useProgressAnimation.ts`
   - **标准**: GSAP 在 5-8 秒内 tween progress uniform 0→1
   - **验证**: 动画播放，粒子从散布移动到图像
 
 ### 指针扰动
 
-- [ ] T090 创建鼠标/触摸位置追踪 hook
+- [x] T090 创建鼠标/触摸位置追踪 hook
   - **文件**: `frontend/src/hooks/usePointerPosition.ts`
   - **标准**: 以标准化坐标追踪指针位置
   - **验证**: 移动时 console 打印指针位置
 
-- [ ] T091 在 ShaderMaterial 创建 pointer uniform
+- [x] T091 在 ShaderMaterial 创建 pointer uniform
   - **文件**: `frontend/src/three/particle-engine/ParticleMaterial.ts`
   - **标准**: pointer uniform (vec2) 传给 shader
   - **验证**: console 打印 uniform 值更新
 
-- [ ] T092 创建散布半径 uniform
+- [x] T092 创建散布半径 uniform
   - **文件**: `frontend/src/three/particle-engine/ParticleMaterial.ts`
   - **标准**: scatterRadius uniform 控制扰动区域
   - **验证**: 改变 scatterRadius，扰动区域变化
 
-- [ ] T093 更新 vertex shader 在指针附近散布
+- [x] T093 更新 vertex shader 在指针附近散布
   - **文件**: `frontend/src/three/shaders/particle.vert.glsl`
   - **标准**: 距指针距离检查，半径内散布
   - **验证**: 指针移近粒子，看到散布效果
 
-- [ ] T094 创建散布重置动画（线性 3 秒）
+- [x] T094 创建散布重置动画（线性 3 秒）
   - **文件**: `frontend/src/hooks/useScatterReset.ts`
   - **标准**: 指针离开后，粒子线性返回
   - **验证**: 指针移开，观察粒子平滑返回
 
 ### 粒子分层系统
 
-- [ ] T095 创建性能检测 hook
+- [x] T095 创建性能检测 hook
   - **文件**: `frontend/src/hooks/usePerformance.ts`
   - **标准**: 通过 FPS 测试或 UA 检测设备分层（high/medium/low）
   - **验证**: 加载时 console 打印检测分层
 
-- [ ] T096 创建每层粒子数量配置
+- [x] T096 创建每层粒子数量配置
   - **文件**: `frontend/src/lib/performance.ts`
   - **标准**: high=60000, medium=30000, low=12000 定义
   - **验证**: console 打印当前分层粒子数量
 
-- [ ] T097 集成分层检测与粒子生成
+- [x] T097 集成分层检测与粒子生成
   - **文件**: `frontend/src/components/particles/ParticleScreen.tsx`
   - **标准**: 粒子数量匹配检测分层
   - **验证**: 手机显示 medium 数量，桌面显示 high
 
 ### Bloom/Glow 效果（可选）
 
-- [ ] T098 创建 EffectComposer 设置
+- [x] T098 创建 EffectComposer 设置
   - **文件**: `frontend/src/three/particle-engine/PostProcessing.ts`
   - **标准**: EffectComposer 用 passes 渲染场景
   - **验证**: 后处理启用，看到 bloom 效果
 
-- [ ] T099 创建 UnrealBloomPass 配置
+- [x] T099 创建 UnrealBloomPass 配置
   - **文件**: `frontend/src/three/particle-engine/PostProcessing.ts`
   - **标准**: Bloom pass 可配置强度/半径
   - **验证**: 调整 bloom 设置，看到光晕强度变化
 
-- [ ] T100 基于性能分层创建 Bloom 切换
+- [x] T100 基于性能分层创建 Bloom 切换
   - **文件**: `frontend/src/components/particles/ParticleScreen.tsx`
   - **标准**: low 分层禁用 Bloom
   - **验证**: low 分层设备显示无 bloom
 
 ### 完整粒子场景
 
-- [ ] T101 集成所有粒子组件到 ParticleScreen
+- [x] T101 集成所有粒子组件到 ParticleScreen
   - **文件**: `frontend/src/components/particles/ParticleScreen.tsx`
   - **标准**: 完整粒子聚合带指针交互，分层感知
   - **验证**: 播放聚合，指针交互，检查 FPS
@@ -615,7 +615,7 @@
 
 **Phase 8: 手势解锁** - MediaPipe Hands初始化、心形手势检测、尝试计数、降级按钮
 
-**Phase 9: 结局** - 花瓣/玫瑰动画、渐变背景、祝福文字打字机效果
+**Phase 9: 结局** - 花瓣/玫瑰动画、渐变背景、粒子从屏幕四周出发在屏幕中间组成一束粒子玫瑰花（浪漫）,再比心玫瑰花破碎粒子散开组成一张照片，这些粒子也能组成祝福文字打字机效果
 
 **Phase 10: 秘密消息** - 消息输入组件、提交API、成功反馈
 
