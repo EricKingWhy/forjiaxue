@@ -7,6 +7,7 @@ import type { FinaleStage } from "@/lib/finale-particles";
 import { FinaleParticles } from "./FinaleParticles";
 import { SecretMessageForm } from "./SecretMessageForm";
 import { TypewriterText } from "./TypewriterText";
+import { useInView } from "@/hooks/useInView";
 
 const DEFAULT_BLESSING = [
   "愿往后的每一段路，都有光落在你肩上。",
@@ -15,6 +16,7 @@ const DEFAULT_BLESSING = [
 ];
 
 export function FinaleScreen() {
+  const { ref, inView } = useInView<HTMLDivElement>();
   const [stage, setStage] = useState<FinaleStage>("gathering");
   const [paragraphs, setParagraphs] = useState(DEFAULT_BLESSING);
   const [visibleParagraphs, setVisibleParagraphs] = useState(1);
@@ -37,8 +39,8 @@ export function FinaleScreen() {
   const showBlessing = stage === "portrait";
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#090308] text-[#f4e8e3]">
-      <div className="absolute inset-0"><FinaleParticles onStage={setStage} /></div>
+    <div ref={ref} className="relative min-h-screen overflow-hidden bg-[#090308] text-[#f4e8e3]">
+      <div className="absolute inset-0"><FinaleParticles onStage={setStage} active={inView} /></div>
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,transparent_0%,rgba(9,3,8,.12)_42%,rgba(9,3,8,.88)_100%)]" />
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-end px-6 pb-[max(3.5rem,env(safe-area-inset-bottom))] pt-16 text-center">
         <p className="mb-auto text-[10px] uppercase tracking-[0.48em] text-[#c99191]/70">A quiet bloom for Jiaxue</p>

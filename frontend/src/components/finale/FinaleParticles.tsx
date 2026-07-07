@@ -87,7 +87,7 @@ function FinaleCloud({ portraitTargets, onStage }: { portraitTargets: Float32Arr
   return <points geometry={geometry} material={material} />;
 }
 
-export function FinaleParticles({ onStage }: { onStage: (stage: FinaleStage) => void }) {
+export function FinaleParticles({ onStage, active = true }: { onStage: (stage: FinaleStage) => void; active?: boolean }) {
   const [portraitTargets, setPortraitTargets] = useState(() => createHeartTargets(PARTICLE_COUNT));
 
   useEffect(() => {
@@ -106,7 +106,7 @@ export function FinaleParticles({ onStage }: { onStage: (stage: FinaleStage) => 
   }, []);
 
   return (
-    <SceneErrorBoundary><Canvas aria-label="玫瑰化作回忆照片的粒子动画" camera={{ position: [0, 0, 9], fov: 48 }} dpr={[1, 1.5]}>
+    <SceneErrorBoundary><Canvas frameloop={active ? "always" : "never"} aria-label="玫瑰化作回忆照片的粒子动画" camera={{ position: [0, 0, 9], fov: 48 }} dpr={[1, 1.5]}>
       <color attach="background" args={["#090308"]} />
       <FinaleCloud portraitTargets={portraitTargets} onStage={onStage} />
     </Canvas></SceneErrorBoundary>

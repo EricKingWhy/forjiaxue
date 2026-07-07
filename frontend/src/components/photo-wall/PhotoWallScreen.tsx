@@ -1,11 +1,13 @@
 import { PhotoWallCanvas } from "./PhotoWallCanvas";
 import { PhotoLightbox } from "./PhotoLightbox";
+import { useInView } from "@/hooks/useInView";
 
 export function PhotoWallScreen() {
+  const { ref, inView } = useInView<HTMLDivElement>();
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#070308] text-rose-100">
+    <div ref={ref} className="relative min-h-screen overflow-hidden bg-[#070308] text-rose-100">
       <div className="absolute inset-0">
-        <PhotoWallCanvas />
+        <PhotoWallCanvas active={inView} />
       </div>
       <div className="pointer-events-none absolute inset-x-0 top-10 text-center">
         <p className="text-xs tracking-[0.45em] text-rose-100/45">CHAPTER II</p>

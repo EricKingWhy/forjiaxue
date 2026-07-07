@@ -1,10 +1,12 @@
 import { ParticleCanvas } from "./ParticleCanvas";
+import { useInView } from "@/hooks/useInView";
 
 export function ParticleScreen() {
+  const { ref, inView } = useInView<HTMLDivElement>();
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-rose-100">
+    <div ref={ref} className="relative min-h-screen overflow-hidden bg-slate-950 text-rose-100">
       <div className="absolute inset-0">
-        <ParticleCanvas />
+        <ParticleCanvas active={inView} />
       </div>
       <div className="pointer-events-none absolute inset-x-0 top-10 text-center">
         <p className="text-xs tracking-[0.45em] text-rose-100/55">FOR JIAXUE</p>

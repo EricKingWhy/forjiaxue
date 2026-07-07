@@ -52,7 +52,7 @@ function PhotoRing({ photos }: { photos: PhotoResponse[] }) {
   );
 }
 
-export function PhotoWallCanvas() {
+export function PhotoWallCanvas({ active = true }: { active?: boolean } = {}) {
   const [photos, setPhotos] = useState<PhotoResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMediaError, setHasMediaError] = useState(false);
@@ -81,7 +81,7 @@ export function PhotoWallCanvas() {
 
   return (
     <div className="relative h-full w-full touch-pan-y">
-      <SceneErrorBoundary><Canvas aria-label="我们的照片回忆" camera={{ position: [0, 0, 0.1], fov: 58 }}>
+      <SceneErrorBoundary><Canvas frameloop={active ? "always" : "never"} aria-label="我们的照片回忆" camera={{ position: [0, 0, 0.1], fov: 58 }}>
         <color attach="background" args={["#070308"]} />
         <ambientLight intensity={0.55} color="#f7d8dc" />
         {tier !== "low" && (

@@ -157,7 +157,7 @@ function ParticleScene({
   return <points geometry={geometry} material={material} />;
 }
 
-export function ParticleCanvas() {
+export function ParticleCanvas({ active = true }: { active?: boolean } = {}) {
   const defaultTier = useConfigStore((state) => state.particle_tier);
   const bloomEnabled = useConfigStore((state) => state.bloom_enabled);
   const { tier } = usePerformance(defaultTier);
@@ -208,6 +208,7 @@ export function ParticleCanvas() {
       style={{ touchAction: "none" }}
     >
       <SceneErrorBoundary><Canvas
+        frameloop={active ? "always" : "never"}
         aria-label="照片粒子场景"
         className="h-full w-full"
         camera={{ position: [0, 0, 8], fov: 50 }}
