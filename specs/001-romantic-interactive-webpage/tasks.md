@@ -637,19 +637,19 @@
 
 ### Phase 6：音乐同步（T111-T123）
 
-- [ ] T111 创建可由点击恢复的 AudioContext — **文件**: `frontend/src/hooks/useAudio.ts`、对应测试 — **标准**: 未经手势不自动播放，点击后 resume — **验证**: `node --no-warnings --experimental-strip-types --test src/hooks/useAudio.test.mjs`
-- [ ] T112 从 `/api/music` 加载 audio element — **文件**: `frontend/src/hooks/useAudio.ts` — **标准**: 使用 API origin 解析媒体 URL并处理空音乐 — **验证**: 浏览器 Network 中音乐请求指向后端
-- [ ] T113 连接 MediaElementSource 到输出 — **文件**: `frontend/src/hooks/useAudio.ts` — **标准**: 每个 element 只连接一次且声音可听 — **验证**: `npx tsc --noEmit && npm run lint`
-- [ ] T114 配置 AnalyserNode FFT 256 — **文件**: `frontend/src/lib/audio-analyser.ts`、对应测试 — **标准**: frequencyBinCount=128 — **验证**: `node --no-warnings --experimental-strip-types --test src/lib/audio-analyser.test.mjs`
-- [ ] T115 计算 bass/mid/treble 能量 — **文件**: `frontend/src/lib/audio-analyser.ts`、对应测试 — **标准**: 三频输出归一化 0..1 — **验证**: 同上测试文件
-- [ ] T116 扩展 audioStore 能量状态 — **文件**: `frontend/src/stores/audioStore.ts` — **标准**: 保存三频与总强度 — **验证**: `npx tsc --noEmit`
-- [ ] T117 音乐驱动粒子亮度 — **文件**: `ParticleMaterial.ts`、`ParticleCanvas.tsx` — **标准**: 强度提高时亮度适度提升不闪白 — **验证**: 浏览器播放音乐观察亮度变化
-- [ ] T118 音乐驱动粒子大小 — **文件**: 同上 — **标准**: bass 平滑调制 pointSize — **验证**: 浏览器播放/暂停比较点尺寸
-- [ ] T119 音乐驱动轻微扩散 — **文件**: 同上 — **标准**: treble 仅产生克制扰动，不破坏主体轮廓 — **验证**: 浏览器观察主体仍可辨识
-- [ ] T120 创建音乐响应背景星尘 — **文件**: `frontend/src/components/particles/AudioStars.tsx` — **标准**: 星尘密度按性能层且响应 mid — **验证**: 390px 与桌面 Console 无错误
-- [ ] T121 同步播放进度和结束状态 — **文件**: `useAudio.ts`、`audioStore.ts` — **标准**: time/duration/isPlaying 一致 — **验证**: `npx tsc --noEmit && npm run lint`
-- [ ] T122 创建无障碍播放/暂停控件 — **文件**: `frontend/src/components/audio/AudioControl.tsx` — **标准**: 键盘可操作且 aria-label 准确 — **验证**: 浏览器键盘操作
-- [ ] T123 保持跨屏音乐连续 — **文件**: `frontend/src/app/ForJiaXue/page.tsx` — **标准**: 单一 audio 生命周期跨 section 不重启 — **验证**: 完整滚动时 Network 不重复下载音乐
+- [x] T111 创建可由点击恢复的 AudioContext — **文件**: `frontend/src/hooks/useAudio.ts`、对应测试 — **标准**: 未经手势不自动播放，点击后 resume — **验证**: `node --no-warnings --experimental-strip-types --test src/hooks/useAudio.test.mjs`
+- [x] T112 从 `/api/music` 加载 audio element — **文件**: `frontend/src/hooks/useAudio.ts` — **标准**: 使用 API origin 解析媒体 URL并处理空音乐 — **验证**: 浏览器 Network 中音乐请求指向后端
+- [x] T113 连接 MediaElementSource 到输出 — **文件**: `frontend/src/hooks/useAudio.ts` — **标准**: 每个 element 只连接一次且声音可听 — **验证**: `npx tsc --noEmit && npm run lint`
+- [x] T114 配置 AnalyserNode FFT 256 — **文件**: `frontend/src/lib/audio-analyser.ts`、对应测试 — **标准**: frequencyBinCount=128 — **验证**: `node --no-warnings --experimental-strip-types --test src/lib/audio-analyser.test.mjs`
+- [x] T115 计算 bass/mid/treble 能量 — **文件**: `frontend/src/lib/audio-analyser.ts`、对应测试 — **标准**: 三频输出归一化 0..1 — **验证**: 同上测试文件
+- [x] T116 扩展 audioStore 能量状态 — **文件**: `frontend/src/stores/audioStore.ts` — **标准**: 保存三频与总强度 — **验证**: `npx tsc --noEmit`
+- [x] T117 音乐驱动粒子亮度 — **文件**: `ParticleMaterial.ts`、`ParticleCanvas.tsx` — **标准**: 强度提高时亮度适度提升不闪白 — **验证**: 浏览器播放音乐观察亮度变化
+- [x] T118 音乐驱动粒子大小 — **文件**: 同上 — **标准**: bass 平滑调制 pointSize — **验证**: 浏览器播放/暂停比较点尺寸
+- [x] T119 音乐驱动轻微扩散 — **文件**: 同上 — **标准**: treble 仅产生克制扰动，不破坏主体轮廓 — **验证**: 浏览器观察主体仍可辨识
+- [x] T120 创建音乐响应背景星尘 — **文件**: `frontend/src/components/particles/AudioStars.tsx` — **标准**: 星尘密度按性能层且响应 mid — **验证**: 390px 与桌面 Console 无错误
+- [x] T121 同步播放进度和结束状态 — **文件**: `useAudio.ts`、`audioStore.ts` — **标准**: time/duration/isPlaying 一致 — **验证**: `npx tsc --noEmit && npm run lint`
+- [x] T122 创建无障碍播放/暂停控件 — **文件**: `frontend/src/components/audio/AudioControl.tsx` — **标准**: 键盘可操作且 aria-label 准确 — **验证**: 浏览器键盘操作
+- [x] T123 保持跨屏音乐连续 — **文件**: `frontend/src/app/ForJiaXue/page.tsx` — **标准**: 单一 audio 生命周期跨 section 不重启 — **验证**: 完整滚动时 Network 不重复下载音乐
 
 ### Phase 7：入口动画（T124-T127）
 

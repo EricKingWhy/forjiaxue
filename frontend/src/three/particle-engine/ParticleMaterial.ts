@@ -17,9 +17,15 @@ uniform vec2 pointer;
 uniform float scatterRadius;
 uniform float scatterIntensity;
 uniform float pointerWorldScale;
+uniform float audioScatter;
 void main() {
   vColor = color;
   vec3 currentPosition = mix(initialPosition, targetPosition, progress);
+  vec2 audioOffset = vec2(
+    sin(initialPosition.x * 5.7 + initialPosition.z),
+    cos(initialPosition.y * 6.1 - initialPosition.z)
+  ) * audioScatter;
+  currentPosition.xy += audioOffset;
 
   vec2 pointerWorld = pointer * pointerWorldScale;
   vec2 offset = currentPosition.xy - pointerWorld;
@@ -40,12 +46,14 @@ export const particleFragmentShader = /* glsl */ `
 precision highp float;
 varying vec3 vColor;
 uniform vec3 baseColor;
+uniform float audioIntensity;
 void main() {
   vec2 centered = gl_PointCoord - vec2(0.5);
   float distanceToCenter = length(centered);
   if (distanceToCenter > 0.5) discard;
   float alpha = smoothstep(0.5, 0.15, distanceToCenter);
-  gl_FragColor = vec4(vColor * baseColor, alpha);
+  float audioGlow = 1.0 + clamp(audioIntensity, 0.0, 1.0) * 0.35;
+  gl_FragColor = vec4(vColor * baseColor * audioGlow, alpha);
 }
 `;
 
@@ -78,6 +86,8 @@ export function createParticleMaterial({
       scatterRadius: { value: scatterRadius },
       scatterIntensity: { value: 1 },
       pointerWorldScale: { value: pointerWorldScale },
+      audioIntensity: { value: 0 },
+      audioScatter: { value: 0 },
     },
     vertexShader: particleVertexShader,
     fragmentShader: particleFragmentShader,

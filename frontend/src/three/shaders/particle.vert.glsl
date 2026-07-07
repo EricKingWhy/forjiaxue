@@ -11,10 +11,16 @@ uniform vec2 pointer;
 uniform float scatterRadius;
 uniform float scatterIntensity;
 uniform float pointerWorldScale;
+uniform float audioScatter;
 
 void main() {
   vColor = color;
   vec3 currentPosition = mix(initialPosition, targetPosition, progress);
+  vec2 audioOffset = vec2(
+    sin(initialPosition.x * 5.7 + initialPosition.z),
+    cos(initialPosition.y * 6.1 - initialPosition.z)
+  ) * audioScatter;
+  currentPosition.xy += audioOffset;
 
   vec2 pointerWorld = pointer * pointerWorldScale;
   vec2 offset = currentPosition.xy - pointerWorld;

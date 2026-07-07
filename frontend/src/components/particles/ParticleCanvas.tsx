@@ -18,13 +18,15 @@ import {
 import { useScatterReset } from "@/hooks/useScatterReset";
 import { usePerformance } from "@/hooks/usePerformance";
 import { getParticleCount, shouldEnableBloom } from "@/lib/performance";
+import { pointSizeFromBass, scatterFromTreble } from "@/lib/audio-visuals";
 import { getPhotos, resolveApiUrl } from "@/lib/api-client";
 import {
   createHeartTargets,
   parseParticleMap,
   type PixelParticle,
 } from "@/lib/particle-utils";
-import { useConfigStore } from "@/stores";
+import { useAudioStore, useConfigStore } from "@/stores";
+import { AudioStars } from "./AudioStars";
 
 function isPointerActive(pointer: NormalizedPointer): boolean {
   return Math.abs(pointer.x) <= 1 && Math.abs(pointer.y) <= 1;
@@ -123,6 +125,23 @@ function ParticleScene({
   // renderPriority=1 disables R3F's automatic render so the composer (or a
   // manual gl.render) owns the frame, matching FR-010/011 and SC-003.
   useFrame((_state, delta) => {
+    const audio = useAudioStore.getState();
+    const audioUniform = materialRef.current?.uniforms.audioIntensity;
+    if (audioUniform) {
+      // Shader uniforms are mutable Three.js state updated outside React rendering.
+      // eslint-disable-next-line react-hooks/immutability
+      audioUniform.value += (audio.intensity - audioUniform.value) * Math.min(1, delta * 8);
+    }
+    const pointSizeUniform = materialRef.current?.uniforms.pointSize;
+    if (pointSizeUniform) {
+      const targetSize = pointSizeFromBass(audio.bass);
+      pointSizeUniform.value += (targetSize - pointSizeUniform.value) * Math.min(1, delta * 10);
+    }
+    const scatterUniform = materialRef.current?.uniforms.audioScatter;
+    if (scatterUniform) {
+      const targetScatter = scatterFromTreble(audio.treble);
+      scatterUniform.value += (targetScatter - scatterUniform.value) * Math.min(1, delta * 7);
+    }
     if (bloom) {
       bloom.render(delta);
     } else {
@@ -190,6 +209,7 @@ export function ParticleCanvas() {
         gl={{ antialias: true, alpha: false }}
       >
         <color attach="background" args={["#08020f"]} />
+        <AudioStars tier={tier} />
         <ParticleScene
           particleCount={particleCount}
           enableBloom={enableBloom}

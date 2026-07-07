@@ -57,3 +57,10 @@ test("attenuates pointer scatter inside the configured radius", () => {
   assert.match(shader, /scatterIntensity/);
   assert.match(shader, /1\.0 - d \/ scatterRadius/);
 });
+
+test("uses a clamped audio intensity uniform to modulate brightness", () => {
+  const material = createParticleMaterial();
+  assert.equal(material.uniforms.audioIntensity.value, 0);
+  assert.match(material.fragmentShader, /audioIntensity/);
+  assert.match(material.fragmentShader, /clamp\(audioIntensity/);
+});

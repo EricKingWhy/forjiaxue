@@ -13,12 +13,15 @@ import { ErrorMessage } from "@/components/ui/ErrorMessage";
 import { useScrollProgress } from "@/hooks/useScroll";
 import { getConfig } from "@/lib/api-client";
 import { useConfigStore } from "@/stores";
+import { useAudio } from "@/hooks/useAudio";
+import { AudioControl } from "@/components/audio/AudioControl";
 
 export default function ForJiaXuePage() {
   const hydrateConfig = useConfigStore((state) => state.hydrate);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   useScrollProgress(!isLoading && error === null);
+  useAudio();
 
   useEffect(() => {
     getConfig()
@@ -45,7 +48,9 @@ export default function ForJiaXuePage() {
   };
 
   return (
-    <main className="h-screen snap-y snap-mandatory overflow-y-auto scroll-smooth">
+    <>
+      <AudioControl />
+      <main className="h-screen snap-y snap-mandatory overflow-y-auto scroll-smooth">
       <section id="entry" className="min-h-screen snap-start">
         <EntryScreen onStart={() => scrollToScreen("particles")} />
       </section>
@@ -64,6 +69,7 @@ export default function ForJiaXuePage() {
       <section id="finale" className="min-h-screen snap-start">
         <FinaleScreen />
       </section>
-    </main>
+      </main>
+    </>
   );
 }
