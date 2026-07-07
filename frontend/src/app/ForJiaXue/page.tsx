@@ -48,8 +48,8 @@ export default function ForJiaXuePage() {
     <>
       <AudioControl />
       <main className="h-screen snap-y snap-mandatory overflow-y-auto scroll-smooth">
-      <section id="entry" className="min-h-screen snap-start">
-        <EntryScreen onStart={() => scrollToScreen("christmas-tree")} />
+      <section id="entry">
+        <EntryScreen />
       </section>
       <section id="christmas-tree" className="relative min-h-screen snap-start">
         <ChristmasTreeScreen onUnlock={() => scrollToScreen("notes")} />
