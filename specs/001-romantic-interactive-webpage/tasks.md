@@ -328,97 +328,97 @@
 
 ### API Client
 
-- [ ] T055 创建带 fetch wrapper 的 API client
+- [x] T055 创建带 fetch wrapper 的 API client
   - **文件**: `frontend/src/lib/api-client.ts`
   - **标准**: getPhotos(), getMusic(), getConfig(), verifyPassword() 函数工作
   - **验证**: 从测试组件调用 API client，console 打印响应
 
-- [ ] T056 从契约创建 TypeScript 类型
+- [x] T056 从契约创建 TypeScript 类型
   - **文件**: `frontend/src/types/index.ts`
   - **标准**: PhotoResponse, MusicResponse, ConfigResponse 等已定义
   - **验证**: 导入类型无错误
 
 ### Zustand Stores
 
-- [ ] T057 [P] 创建 configStore 用于应用设置
+- [x] T057 [P] 创建 configStore 用于应用设置
   - **文件**: `frontend/src/stores/configStore.ts`
   - **标准**: 存储 visitor_password_enabled, particle_tier, bloom_enabled
   - **验证**: API fetch 后 console 打印 store 状态
 
-- [ ] T058 [P] 创建 screenStore 用于导航状态
+- [x] T058 [P] 创建 screenStore 用于导航状态
   - **文件**: `frontend/src/stores/screenStore.ts`
   - **标准**: 存储 current screen, screens_completed 数组
   - **验证**: console 打印屏幕进展
 
-- [ ] T059 [P] 创建 audioStore 用于音乐状态
+- [x] T059 [P] 创建 audioStore 用于音乐状态
   - **文件**: `frontend/src/stores/audioStore.ts`
   - **标准**: 存储 isPlaying, audioElement 引用
   - **验证**: console 打印音频状态
 
 ### 页面结构
 
-- [ ] T060 创建 /ForJiaXue 页面布局
+- [x] T060 创建 /ForJiaXue 页面布局
   - **文件**: `frontend/src/app/ForJiaXue/page.tsx`
   - **标准**: 页面渲染，从 API 获取 config
   - **验证**: 打开 /ForJiaXue，检查 console 的 API 响应
 
-- [ ] T061 创建密码输入组件（如果启用）
+- [x] T061 创建密码输入组件（如果启用）
   - **文件**: `frontend/src/components/entry/PasswordEntry.tsx`
   - **标准**: 密码输入，验证按钮，失败显示错误消息
   - **验证**: 输入错误密码看错误；正确密码继续
 
-- [ ] T062 创建入口屏幕容器
+- [x] T062 创建入口屏幕容器
   - **文件**: `frontend/src/components/entry/EntryScreen.tsx`
   - **标准**: 密码 + 花瓣动画占位容器
   - **验证**: 组件渲染，显示动画占位
 
 ### 屏幕组件（静态占位）
 
-- [ ] T063 [P] 创建粒子屏幕占位
+- [x] T063 [P] 创建粒子屏幕占位
   - **文件**: `frontend/src/components/particles/ParticleScreen.tsx`
   - **标准**: 占位 div 显示 "粒子屏幕" 文字
   - **验证**: 导航到粒子屏幕，看到占位
 
-- [ ] T064 [P] 创建照片墙屏幕占位
+- [x] T064 [P] 创建照片墙屏幕占位
   - **文件**: `frontend/src/components/photo-wall/PhotoWallScreen.tsx`
   - **标准**: 占位 div 显示 "照片墙屏幕" 文字
   - **验证**: 导航到照片墙屏幕，看到占位
 
-- [ ] T065 [P] 创建解锁屏幕占位
+- [x] T065 [P] 创建解锁屏幕占位
   - **文件**: `frontend/src/components/unlock/UnlockScreen.tsx`
   - **标准**: 占位 div 显示 "解锁屏幕" 文字
   - **验证**: 导航到解锁屏幕，看到占位
 
-- [ ] T066 [P] 创建结局屏幕占位
+- [x] T066 [P] 创建结局屏幕占位
   - **文件**: `frontend/src/components/finale/FinaleScreen.tsx`
   - **标准**: 占位 div 显示 "结局屏幕" 文字
   - **验证**: 导航到结局屏幕，看到占位
 
 ### 导航流程（静态）
 
-- [ ] T067 实现垂直滚动导航带 sections
+- [x] T067 实现垂直滚动导航带 sections
   - **文件**: `frontend/src/app/ForJiaXue/page.tsx`
   - **标准**: 每个屏幕是滚动 section，scroll snaps 工作
   - **验证**: 滚动所有占位，每个 section 可见
 
-- [ ] T068 创建 "下一步" 按钮屏幕间导航
+- [x] T068 创建 "下一步" 按钮屏幕间导航
   - **文件**: `frontend/src/components/ui/NextButton.tsx`
   - **标准**: 点击按钮滚动到下一 section
   - **验证**: 点击 "下一步"，滚动到下一个占位
 
-- [ ] T069 在 screenStore 追踪屏幕进展
+- [x] T069 在 screenStore 追踪屏幕进展
   - **文件**: `frontend/src/hooks/useScroll.ts`
   - **标准**: 滚动位置更新 screenStore.screens_completed
   - **验证**: console 打印滚动时 screens_completed 更新
 
 ### UI 组件
 
-- [ ] T070 [P] 创建加载指示器组件
+- [x] T070 [P] 创建加载指示器组件
   - **文件**: `frontend/src/components/ui/LoadingIndicator.tsx`
   - **标准**: API fetch 时显示 spinner
   - **验证**: config 加载前看到加载指示器
 
-- [ ] T071 [P] 创建错误消息组件
+- [x] T071 [P] 创建错误消息组件
   - **文件**: `frontend/src/components/ui/ErrorMessage.tsx`
   - **标准**: 优雅显示 API 错误
   - **验证**: 模拟 API 错误，看到错误消息

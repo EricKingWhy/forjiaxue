@@ -1,4 +1,3 @@
-// Placeholder types - will be defined based on API contracts
 export interface PhotoResponse {
   id: number;
   webp_url: string;
@@ -11,7 +10,13 @@ export interface PhotoResponse {
 export interface MusicResponse {
   id: number;
   music_url: string;
-  original_filename?: string;
+  original_filename: string;
+  is_active?: boolean;
+}
+
+export interface PhotosResponse {
+  main_photo: PhotoResponse | null;
+  wall_photos: PhotoResponse[];
 }
 
 export interface ConfigResponse {
@@ -33,3 +38,10 @@ export interface MessageResponse {
   id: number;
   created_at: string;
 }
+
+export interface PasswordVerifyResponse {
+  valid: boolean;
+  error?: string;
+}
+
+export type ScreenName = "entry" | "particles" | "wall" | "unlock" | "finale";
