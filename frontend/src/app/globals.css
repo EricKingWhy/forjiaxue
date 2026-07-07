@@ -25,6 +25,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+html, body { overflow-x: hidden; }
+button, a, textarea, input { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 1px solid rgba(235, 188, 182, .85); outline-offset: 4px; }
+
 @keyframes petal-fall {
   0% { opacity: 0; transform: translate3d(0, -8vh, 0) rotate(0deg) scale(.75); }
   12% { opacity: .55; }
@@ -44,4 +48,14 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .entry-petal { animation: none; display: none; }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+@supports (padding: max(0px)) {
+  body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
 }

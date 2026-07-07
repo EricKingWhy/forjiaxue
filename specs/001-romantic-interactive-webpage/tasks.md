@@ -686,12 +686,12 @@
 
 ### Phase 11：优化打磨（T145-T150）
 
-- [ ] T145 统一异步 skeleton/loading — **文件**: 各 screen 与 UI 组件 — **标准**: 不闪白、不产生布局跳动 — **验证**: 浏览器慢速网络检查
-- [ ] T146 统一 API/WebGL/媒体错误边界 — **文件**: `ErrorMessage.tsx`、各 screen — **标准**: 每种失败均有可恢复路径 — **验证**: 断后端与禁 WebGL 测试
-- [ ] T147 暴露轻量 FPS 监控与自动降级 — **文件**: `usePerformance.ts` — **标准**: 连续低帧才降级且不反复抖动 — **验证**: 软件 WebGL 环境稳定 ≥45 FPS
-- [ ] T148 优化 geometry/material 生命周期 — **文件**: 3D 组件 — **标准**: 卸载 dispose、无重复 composer/audio source — **验证**: 多次跨屏后内存/Console 无增长警告
-- [ ] T149 完成移动端响应式和安全区 — **文件**: 页面/全局样式 — **标准**: 320–1440px 无横向溢出，按钮避开 safe-area — **验证**: 浏览器 responsive 截图
-- [ ] T150 完成 reduced-motion 与基础无障碍 — **文件**: 全局样式与交互组件 — **标准**: 焦点可见、语义标签、对比度、动画降级 — **验证**: 键盘全流程和浏览器 accessibility tree
+- [x] T145 统一异步 skeleton/loading — **文件**: 各 screen 与 UI 组件 — **标准**: 不闪白、不产生布局跳动 — **验证**: 浏览器慢速网络检查
+- [x] T146 统一 API/WebGL/媒体错误边界 — **文件**: `ErrorMessage.tsx`、各 screen — **标准**: 每种失败均有可恢复路径 — **验证**: 断后端与禁 WebGL 测试
+- [x] T147 暴露轻量 FPS 监控与自动降级 — **文件**: `usePerformance.ts` — **标准**: 连续低帧才降级且不反复抖动 — **验证**: 软件 WebGL 环境稳定 ≥45 FPS
+- [x] T148 优化 geometry/material 生命周期 — **文件**: 3D 组件 — **标准**: 卸载 dispose、无重复 composer/audio source — **验证**: 多次跨屏后内存/Console 无增长警告
+- [x] T149 完成移动端响应式和安全区 — **文件**: 页面/全局样式 — **标准**: 320–1440px 无横向溢出，按钮避开 safe-area — **验证**: 浏览器 responsive 截图
+- [x] T150 完成 reduced-motion 与基础无障碍 — **文件**: 全局样式与交互组件 — **标准**: 焦点可见、语义标签、对比度、动画降级 — **验证**: 键盘全流程和浏览器 accessibility tree
 
 ### Phase 12：Docker 部署（T151-T161）
 

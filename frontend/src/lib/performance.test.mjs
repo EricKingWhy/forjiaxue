@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getParticleCount, shouldEnableBloom, tierForFps } from "./performance.ts";
+import { getParticleCount, shouldEnableBloom, tierForFps, tierForFpsSamples } from "./performance.ts";
 
 test("maps performance tiers to required particle budgets", () => {
   assert.deepEqual(
@@ -21,4 +21,10 @@ test("disables bloom for low-tier or explicit configuration", () => {
   assert.equal(shouldEnableBloom("low"), false);
   assert.equal(shouldEnableBloom("high", false), false);
   assert.equal(shouldEnableBloom("medium", true), true);
+});
+
+test("only downgrades after sustained low frame-rate samples", () => {
+  assert.equal(tierForFpsSamples("high", [58, 24, 56]), "high");
+  assert.equal(tierForFpsSamples("high", [27, 25, 55]), "low");
+  assert.equal(tierForFpsSamples("high", [44, 43, 54]), "medium");
 });

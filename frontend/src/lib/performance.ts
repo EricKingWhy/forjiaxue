@@ -31,3 +31,15 @@ export function tierForFps(
   if (fps < 50 && currentTier === "high") return "medium";
   return currentTier;
 }
+
+export function tierForFpsSamples(
+  currentTier: PerformanceTier,
+  samples: number[],
+): PerformanceTier {
+  if (samples.length < 2) return currentTier;
+  const lowSamples = samples.filter((fps) => fps < 30).length;
+  if (lowSamples >= 2) return "low";
+  const strainedSamples = samples.filter((fps) => fps < 50).length;
+  if (currentTier === "high" && strainedSamples >= 2) return "medium";
+  return currentTier;
+}

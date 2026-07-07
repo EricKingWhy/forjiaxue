@@ -18,6 +18,7 @@ import type { PhotoResponse } from "@/types";
 import { useConfigStore, usePhotoWallStore } from "@/stores";
 
 import { PhotoCard } from "./PhotoCard";
+import { SceneErrorBoundary } from "@/components/ui/SceneErrorBoundary";
 
 class PhotoMediaBoundary extends Component<
   { children: ReactNode; onError: () => void },
@@ -80,7 +81,7 @@ export function PhotoWallCanvas() {
 
   return (
     <div className="relative h-full w-full touch-pan-y">
-      <Canvas aria-label="我们的照片回忆" camera={{ position: [0, 0, 0.1], fov: 58 }}>
+      <SceneErrorBoundary><Canvas aria-label="我们的照片回忆" camera={{ position: [0, 0, 0.1], fov: 58 }}>
         <color attach="background" args={["#070308"]} />
         <ambientLight intensity={0.55} color="#f7d8dc" />
         {tier !== "low" && (
@@ -90,7 +91,7 @@ export function PhotoWallCanvas() {
         <PhotoMediaBoundary onError={() => setHasMediaError(true)}>
           <Suspense fallback={null}>{visiblePhotos.length > 0 && <PhotoRing photos={visiblePhotos} />}</Suspense>
         </PhotoMediaBoundary>
-      </Canvas>
+      </Canvas></SceneErrorBoundary>
       {(isLoading || photos.length === 0 || hasMediaError) && (
         <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
           <div>

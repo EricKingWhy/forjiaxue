@@ -27,6 +27,7 @@ import {
 } from "@/lib/particle-utils";
 import { useAudioStore, useConfigStore } from "@/stores";
 import { AudioStars } from "./AudioStars";
+import { SceneErrorBoundary } from "@/components/ui/SceneErrorBoundary";
 
 function isPointerActive(pointer: NormalizedPointer): boolean {
   return Math.abs(pointer.x) <= 1 && Math.abs(pointer.y) <= 1;
@@ -121,6 +122,10 @@ function ParticleScene({
   }, [bloom, size]);
 
   useEffect(() => () => bloom?.dispose(), [bloom]);
+  useEffect(() => () => {
+    geometry.dispose();
+    material.dispose();
+  }, [geometry, material]);
 
   // renderPriority=1 disables R3F's automatic render so the composer (or a
   // manual gl.render) owns the frame, matching FR-010/011 and SC-003.
@@ -202,7 +207,7 @@ export function ParticleCanvas() {
       onPointerLeave={onPointerLeave}
       style={{ touchAction: "none" }}
     >
-      <Canvas
+      <SceneErrorBoundary><Canvas
         aria-label="照片粒子场景"
         className="h-full w-full"
         camera={{ position: [0, 0, 8], fov: 50 }}
@@ -218,7 +223,7 @@ export function ParticleCanvas() {
           targetPositions={targetData?.positions ?? fallbackTargets}
           targetColors={targetData?.colors}
         />
-      </Canvas>
+      </Canvas></SceneErrorBoundary>
     </div>
   );
 }

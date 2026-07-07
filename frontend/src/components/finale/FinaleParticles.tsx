@@ -7,6 +7,7 @@ import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, PointsMateria
 import { getPhotos, resolveApiUrl } from "@/lib/api-client";
 import { createHeartTargets, parseParticleMap } from "@/lib/particle-utils";
 import { createRoseTargets, createScatterOrigins, finaleStageAt, type FinaleStage } from "@/lib/finale-particles";
+import { SceneErrorBoundary } from "@/components/ui/SceneErrorBoundary";
 
 const PARTICLE_COUNT = 1800;
 
@@ -105,9 +106,9 @@ export function FinaleParticles({ onStage }: { onStage: (stage: FinaleStage) => 
   }, []);
 
   return (
-    <Canvas aria-label="玫瑰化作回忆照片的粒子动画" camera={{ position: [0, 0, 9], fov: 48 }} dpr={[1, 1.5]}>
+    <SceneErrorBoundary><Canvas aria-label="玫瑰化作回忆照片的粒子动画" camera={{ position: [0, 0, 9], fov: 48 }} dpr={[1, 1.5]}>
       <color attach="background" args={["#090308"]} />
       <FinaleCloud portraitTargets={portraitTargets} onStage={onStage} />
-    </Canvas>
+    </Canvas></SceneErrorBoundary>
   );
 }

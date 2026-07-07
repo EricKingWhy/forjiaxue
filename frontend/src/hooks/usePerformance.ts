@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { tierForFps, type PerformanceTier } from "@/lib/performance";
+import { tierForFpsSamples, type PerformanceTier } from "@/lib/performance";
 
 export interface PerformanceState {
   tier: PerformanceTier;
@@ -49,17 +49,20 @@ export function usePerformance(
     setState({ tier, isDetecting: true });
 
     let frames = 0;
-    const startedAt = performance.now();
+    let windowStartedAt = performance.now();
+    const samples: number[] = [];
     let frameId = 0;
     const sample = (now: number) => {
       frames += 1;
-      const elapsed = now - startedAt;
-      if (elapsed >= 1500) {
-        if (!cancelled) {
-          const fps = (frames * 1000) / elapsed;
-          setState({ tier: tierForFps(tier, fps), isDetecting: false });
+      const elapsed = now - windowStartedAt;
+      if (elapsed >= 1000) {
+        samples.push((frames * 1000) / elapsed);
+        frames = 0;
+        windowStartedAt = now;
+        if (samples.length === 3) {
+          if (!cancelled) setState({ tier: tierForFpsSamples(tier, samples), isDetecting: false });
+          return;
         }
-        return;
       }
       frameId = requestAnimationFrame(sample);
     };

@@ -29,6 +29,7 @@ yarn-error.log*
 *.swo
 .claude/
 .workbuddy/
+.agents/
 
 # OS
 .DS_Store
