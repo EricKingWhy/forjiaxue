@@ -36,6 +36,19 @@ button, a, textarea, input { -webkit-tap-highlight-color: transparent; }
   100% { opacity: 0; transform: translate3d(var(--petal-drift), 112vh, 0) rotate(430deg) scale(1.05); }
 }
 
+@keyframes entry-particle-in {
+  0%, 28% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes entry-particle-veil {
+  0%, 100% { opacity: 0; }
+  45% { opacity: .92; }
+}
+
+.entry-particle-in { animation: entry-particle-in 450ms ease-in-out both; }
+.entry-particle-veil { animation: entry-particle-veil 450ms ease-in-out both; }
+
 .entry-petal { animation: petal-fall linear infinite; }
 .entry-aurora {
   background:
@@ -54,6 +67,8 @@ button, a, textarea, input { -webkit-tap-highlight-color: transparent; }
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
+  .entry-particle-in { opacity: 1; }
+  .entry-particle-veil { display: none; }
 }
 
 @supports (padding: max(0px)) {
