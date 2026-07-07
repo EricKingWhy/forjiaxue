@@ -623,6 +623,90 @@
 
 **Phase 12: Docker部署** - Dockerfiles、docker-compose.yml、验证脚本
 
+### Phase 5：3D 照片墙（T102-T110）
+
+- [x] T102 实现圆柱照片墙布局计算 — **文件**: `frontend/src/three/photo-wall/layout.ts`、对应测试 — **标准**: 输入数量/半径返回均匀位置与朝向 — **验证**: `node --no-warnings --experimental-strip-types --test src/three/photo-wall/layout.test.mjs`
+- [x] T103 创建带纹理的照片卡片 — **文件**: `frontend/src/components/photo-wall/PhotoCard.tsx` — **标准**: WebP 纹理、圆角边框和克制高光可见 — **验证**: `npx tsc --noEmit && npm run lint`
+- [x] T104 创建照片墙 Canvas 并接入 `/api/photos` — **文件**: `frontend/src/components/photo-wall/PhotoWallCanvas.tsx`、`PhotoWallScreen.tsx` — **标准**: wall_photos 按圆柱布局渲染，空数据有高级感 fallback — **验证**: 浏览器检查 `#wall canvas` 可见且 Console 无 WebGL 错误
+- [x] T105 实现拖拽/滚轮旋转 — **文件**: `frontend/src/hooks/useWallRotation.ts`、对应测试 — **标准**: 阻尼旋转且不抢占页面纵向导航 — **验证**: `node --no-warnings --experimental-strip-types --test src/hooks/useWallRotation.test.mjs`
+- [x] T106 实现照片点击命中与选择状态 — **文件**: `frontend/src/components/photo-wall/PhotoCard.tsx`、`photoWallStore.ts` — **标准**: 点击卡片记录唯一 photo id — **验证**: `npx tsc --noEmit && npm run lint`
+- [x] T107 实现照片放大动画 — **文件**: `frontend/src/components/photo-wall/PhotoLightbox.tsx` — **标准**: 选中照片平滑进入前景，背景柔和虚化 — **验证**: 浏览器点击照片并检查 lightbox 可见
+- [x] T108 实现关闭和键盘 Escape — **文件**: `frontend/src/components/photo-wall/PhotoLightbox.tsx` — **标准**: 点击遮罩、关闭按钮、Escape 均恢复墙体 — **验证**: 浏览器执行三种关闭路径
+- [x] T109 添加环境光与色调映射 — **文件**: `frontend/src/components/photo-wall/PhotoWallCanvas.tsx` — **标准**: 暗部保留细节且肤色不偏色 — **验证**: 浏览器截图审查曝光层次
+- [x] T110 添加玫瑰金点光源和移动端降级 — **文件**: `frontend/src/components/photo-wall/PhotoWallCanvas.tsx` — **标准**: 桌面有柔和轮廓光，低层设备减少灯光/卡片 — **验证**: 桌面与 390px 视口均无错误和横向溢出
+
+### Phase 6：音乐同步（T111-T123）
+
+- [ ] T111 创建可由点击恢复的 AudioContext — **文件**: `frontend/src/hooks/useAudio.ts`、对应测试 — **标准**: 未经手势不自动播放，点击后 resume — **验证**: `node --no-warnings --experimental-strip-types --test src/hooks/useAudio.test.mjs`
+- [ ] T112 从 `/api/music` 加载 audio element — **文件**: `frontend/src/hooks/useAudio.ts` — **标准**: 使用 API origin 解析媒体 URL并处理空音乐 — **验证**: 浏览器 Network 中音乐请求指向后端
+- [ ] T113 连接 MediaElementSource 到输出 — **文件**: `frontend/src/hooks/useAudio.ts` — **标准**: 每个 element 只连接一次且声音可听 — **验证**: `npx tsc --noEmit && npm run lint`
+- [ ] T114 配置 AnalyserNode FFT 256 — **文件**: `frontend/src/lib/audio-analyser.ts`、对应测试 — **标准**: frequencyBinCount=128 — **验证**: `node --no-warnings --experimental-strip-types --test src/lib/audio-analyser.test.mjs`
+- [ ] T115 计算 bass/mid/treble 能量 — **文件**: `frontend/src/lib/audio-analyser.ts`、对应测试 — **标准**: 三频输出归一化 0..1 — **验证**: 同上测试文件
+- [ ] T116 扩展 audioStore 能量状态 — **文件**: `frontend/src/stores/audioStore.ts` — **标准**: 保存三频与总强度 — **验证**: `npx tsc --noEmit`
+- [ ] T117 音乐驱动粒子亮度 — **文件**: `ParticleMaterial.ts`、`ParticleCanvas.tsx` — **标准**: 强度提高时亮度适度提升不闪白 — **验证**: 浏览器播放音乐观察亮度变化
+- [ ] T118 音乐驱动粒子大小 — **文件**: 同上 — **标准**: bass 平滑调制 pointSize — **验证**: 浏览器播放/暂停比较点尺寸
+- [ ] T119 音乐驱动轻微扩散 — **文件**: 同上 — **标准**: treble 仅产生克制扰动，不破坏主体轮廓 — **验证**: 浏览器观察主体仍可辨识
+- [ ] T120 创建音乐响应背景星尘 — **文件**: `frontend/src/components/particles/AudioStars.tsx` — **标准**: 星尘密度按性能层且响应 mid — **验证**: 390px 与桌面 Console 无错误
+- [ ] T121 同步播放进度和结束状态 — **文件**: `useAudio.ts`、`audioStore.ts` — **标准**: time/duration/isPlaying 一致 — **验证**: `npx tsc --noEmit && npm run lint`
+- [ ] T122 创建无障碍播放/暂停控件 — **文件**: `frontend/src/components/audio/AudioControl.tsx` — **标准**: 键盘可操作且 aria-label 准确 — **验证**: 浏览器键盘操作
+- [ ] T123 保持跨屏音乐连续 — **文件**: `frontend/src/app/ForJiaXue/page.tsx` — **标准**: 单一 audio 生命周期跨 section 不重启 — **验证**: 完整滚动时 Network 不重复下载音乐
+
+### Phase 7：入口动画（T124-T127）
+
+- [ ] T124 创建轻量 SVG 花瓣资产 — **文件**: `frontend/public/assets/petal.svg` — **标准**: 矢量、无外部版权资产、体积小 — **验证**: `Get-Item public/assets/petal.svg`
+- [ ] T125 创建分层花瓣与星光动画 — **文件**: `frontend/src/components/entry/PetalField.tsx` — **标准**: 随机节奏、低透明度、支持 reduced-motion — **验证**: 浏览器截图和 reduced-motion 检查
+- [ ] T126 重做高级感入口主视觉和开始按钮 — **文件**: `EntryScreen.tsx` — **标准**: 深酒红/玫瑰金、克制排版、无俗艳渐变 — **验证**: 桌面与移动截图审查
+- [ ] T127 点击开始时播放音乐并过渡粒子屏 — **文件**: `EntryScreen.tsx`、`page.tsx` — **标准**: 同一用户手势触发 audio resume 与平滑过渡 — **验证**: 浏览器点击一次完成两项动作
+
+### Phase 8：手势解锁（T128-T136）
+
+- [ ] T128 接入 MediaPipe Hand Landmarker — **文件**: `frontend/src/lib/gesture/hand-landmarker.ts` — **标准**: 延迟加载模型且不阻塞首屏 — **验证**: `npx tsc --noEmit && npm run build`
+- [ ] T129 创建摄像头帧关键点检测 hook — **文件**: `frontend/src/hooks/useGesture.ts` — **标准**: 单一流、卸载释放 tracks — **验证**: 浏览器授权后可看到关键点状态
+- [ ] T130 定义双手比心几何特征 — **文件**: `frontend/src/lib/gesture/heart-gesture.ts`、对应测试 — **标准**: 基于拇指/食指距离与手掌方向 — **验证**: `node --no-warnings --experimental-strip-types --test src/lib/gesture/heart-gesture.test.mjs`
+- [ ] T131 实现带置信度和连续帧的匹配 — **文件**: 同上 — **标准**: 连续命中才成功，降低误触 — **验证**: 同上测试文件
+- [ ] T132 记录失败尝试次数 — **文件**: `frontend/src/stores/gestureStore.ts` — **标准**: 每次完整尝试仅计一次 — **验证**: `npx tsc --noEmit`
+- [ ] T133 创建相机预览与引导反馈 — **文件**: `frontend/src/components/unlock/GestureUnlock.tsx` — **标准**: 清晰说明姿势和实时状态 — **验证**: 浏览器授权流程
+- [ ] T134 四次失败后显示降级按钮 — **文件**: 同上 — **标准**: 文案来自 config 且用户不会被卡死 — **验证**: 模拟四次失败后按钮可见
+- [ ] T135 处理拒绝/无摄像头/模型失败 — **文件**: 同上 — **标准**: 立即提供降级继续路径 — **验证**: 浏览器拒绝权限后仍可进入结局
+- [ ] T136 解锁成功过渡结局 — **文件**: `UnlockScreen.tsx`、`screenStore.ts` — **标准**: 成功仅触发一次并平滑进入 finale — **验证**: 浏览器模拟成功
+
+### Phase 9：结局（T137-T141）
+
+- [ ] T137 创建粒子玫瑰聚合序列 — **文件**: `frontend/src/components/finale/FinaleParticles.tsx` — **标准**: 四周光尘聚成克制玫瑰轮廓 — **验证**: 浏览器观察完整动画且 Console 无 WebGL 错误
+- [ ] T138 实现比心后玫瑰破碎并重组成主照片 — **文件**: 同上 — **标准**: 过渡连贯、无上传照片时使用抽象光影 fallback — **验证**: 浏览器运行两种数据状态
+- [ ] T139 获取 `/api/blessing` 段落并处理失败 — **文件**: `FinaleScreen.tsx` — **标准**: API 文案优先，失败显示克制默认祝福 — **验证**: 正常与断网两种浏览器路径
+- [ ] T140 创建可取消的打字机组件 — **文件**: `frontend/src/components/finale/TypewriterText.tsx`、对应测试 — **标准**: 支持中文、卸载清理 timer、reduced-motion 立即显示 — **验证**: `node --no-warnings --experimental-strip-types --test src/components/finale/TypewriterText.test.mjs`
+- [ ] T141 顺序展示多段祝福并完成结局构图 — **文件**: `FinaleScreen.tsx` — **标准**: 文字层级、留白、照片和粒子互不遮挡 — **验证**: 桌面/390px 截图审查
+
+### Phase 10：秘密消息（T142-T144）
+
+- [ ] T142 创建秘密消息表单 — **文件**: `frontend/src/components/finale/SecretMessageForm.tsx` — **标准**: 字数限制、标签、键盘可用 — **验证**: `npm run lint && npx tsc --noEmit`
+- [ ] T143 调用 `POST /api/messages` — **文件**: `api-client.ts`、`SecretMessageForm.tsx` — **标准**: 正确 payload、防重复提交、失败可重试 — **验证**: 浏览器 Network 检查 201
+- [ ] T144 创建成功反馈并验证管理端可读 — **文件**: `SecretMessageForm.tsx` — **标准**: 成功后不泄露管理数据，admin API 能读取 — **验证**: 提交后用认证 curl 查询消息
+
+### Phase 11：优化打磨（T145-T150）
+
+- [ ] T145 统一异步 skeleton/loading — **文件**: 各 screen 与 UI 组件 — **标准**: 不闪白、不产生布局跳动 — **验证**: 浏览器慢速网络检查
+- [ ] T146 统一 API/WebGL/媒体错误边界 — **文件**: `ErrorMessage.tsx`、各 screen — **标准**: 每种失败均有可恢复路径 — **验证**: 断后端与禁 WebGL 测试
+- [ ] T147 暴露轻量 FPS 监控与自动降级 — **文件**: `usePerformance.ts` — **标准**: 连续低帧才降级且不反复抖动 — **验证**: 软件 WebGL 环境稳定 ≥45 FPS
+- [ ] T148 优化 geometry/material 生命周期 — **文件**: 3D 组件 — **标准**: 卸载 dispose、无重复 composer/audio source — **验证**: 多次跨屏后内存/Console 无增长警告
+- [ ] T149 完成移动端响应式和安全区 — **文件**: 页面/全局样式 — **标准**: 320–1440px 无横向溢出，按钮避开 safe-area — **验证**: 浏览器 responsive 截图
+- [ ] T150 完成 reduced-motion 与基础无障碍 — **文件**: 全局样式与交互组件 — **标准**: 焦点可见、语义标签、对比度、动画降级 — **验证**: 键盘全流程和浏览器 accessibility tree
+
+### Phase 12：Docker 部署（T151-T161）
+
+- [ ] T151 创建多阶段前端 Dockerfile — **文件**: `frontend/Dockerfile` — **标准**: production standalone、非 root、无 node_modules 入 context — **验证**: `docker build -t forjiaxue-frontend frontend`
+- [ ] T152 创建后端 Dockerfile — **文件**: `backend/Dockerfile` — **标准**: Python 3.11 slim、非 root、持久目录可写 — **验证**: `docker build -t forjiaxue-backend backend`
+- [ ] T153 创建 compose 编排 — **文件**: `docker-compose.yml` — **标准**: 前后端、网络、uploads/data volumes 和依赖健康检查 — **验证**: `docker compose config`
+- [ ] T154 创建根/前后端 `.dockerignore` — **文件**: `.dockerignore` 等 — **标准**: 排除 Git、构建产物、数据库、uploads、env、测试缓存 — **验证**: `docker build` context 不含禁入目录
+- [ ] T155 创建环境变量模板 — **文件**: `.env.example`、README — **标准**: 仅占位符，无密钥，说明 API origin/CORS/admin secret — **验证**: `git grep -nE '(password|secret|token)=' -- .env.example`
+- [ ] T156 启动完整 Compose — **文件**: `docker-compose.yml` — **标准**: `up --build` 后容器均 healthy — **验证**: `docker compose up --build -d && docker compose ps`
+- [ ] T157 验证容器前端 — **文件**: `scripts/verify-deployment.ps1` — **标准**: `/ForJiaXue` 返回 200 — **验证**: `Invoke-WebRequest http://localhost:3000/ForJiaXue`
+- [ ] T158 验证容器后端 APIs — **文件**: 同脚本 — **标准**: health/photos/music/config/blessing 均成功 — **验证**: 运行 PowerShell 验证脚本
+- [ ] T159 验证容器照片上传处理 — **文件**: 同脚本/后端测试 — **标准**: 上传后生成 WebP/thumb/particle-map 且重启仍存在 — **验证**: 使用临时小图上传、重启、查询后删除临时数据
+- [ ] T160 运行完整浏览器体验 — **文件**: `frontend/e2e/romantic-flow.spec.ts` — **标准**: 入口→粒子→照片墙→降级解锁→结局→留言全通 — **验证**: `npx playwright test e2e/romantic-flow.spec.ts`
+- [ ] T161 完成部署文档和一键验证 — **文件**: `README.md`、`scripts/verify-deployment.ps1` — **标准**: 新环境按文档可启动、验证、停止且不生成入库数据 — **验证**: `powershell -ExecutionPolicy Bypass -File scripts/verify-deployment.ps1`
+
 ---
 
 ## 依赖与执行顺序
