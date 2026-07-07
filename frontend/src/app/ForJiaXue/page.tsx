@@ -3,10 +3,9 @@
 import { useEffect, useState } from "react";
 
 import { EntryScreen } from "@/components/entry/EntryScreen";
-import { FinaleScreen } from "@/components/finale/FinaleScreen";
-import { ParticleScreen } from "@/components/particles/ParticleScreen";
-import { PhotoWallScreen } from "@/components/photo-wall/PhotoWallScreen";
+import { ChristmasTreeScreen } from "@/components/christmas-tree/ChristmasTreeScreen";
 import { UnlockScreen } from "@/components/unlock/UnlockScreen";
+import { FinaleScreen } from "@/components/finale/FinaleScreen";
 import { NextButton } from "@/components/ui/NextButton";
 import { LoadingIndicator } from "@/components/ui/LoadingIndicator";
 import { ErrorMessage } from "@/components/ui/ErrorMessage";
@@ -52,14 +51,10 @@ export default function ForJiaXuePage() {
       <AudioControl />
       <main className="h-screen snap-y snap-mandatory overflow-y-auto scroll-smooth">
       <section id="entry" className="min-h-screen snap-start">
-        <EntryScreen onStart={() => scrollToScreen("particles")} />
+        <EntryScreen onStart={() => scrollToScreen("christmas-tree")} />
       </section>
-      <section id="particles" className="relative min-h-screen snap-start">
-        <ParticleScreen />
-        <NextButton targetId="wall" />
-      </section>
-      <section id="wall" className="relative min-h-screen snap-start">
-        <PhotoWallScreen />
+      <section id="christmas-tree" className="relative min-h-screen snap-start">
+        <ChristmasTreeScreen />
         <NextButton targetId="unlock" />
       </section>
       <section id="unlock" className="relative min-h-screen snap-start">

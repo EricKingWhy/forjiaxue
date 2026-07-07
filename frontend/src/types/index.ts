@@ -90,4 +90,4 @@ export interface AdminStatsResponse {
   avg_duration_seconds: number;
 }
 
-export type ScreenName = "entry" | "particles" | "wall" | "unlock" | "finale";
+export type ScreenName = "entry" | "christmas-tree" | "unlock" | "finale";
