@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 
 import { EntryScreen } from "@/components/entry/EntryScreen";
 import { ChristmasTreeScreen } from "@/components/christmas-tree/ChristmasTreeScreen";
-import { UnlockScreen } from "@/components/unlock/UnlockScreen";
-import { FinaleScreen } from "@/components/finale/FinaleScreen";
-import { NextButton } from "@/components/ui/NextButton";
+import { NotesScreen } from "@/components/notes/NotesScreen";
 import { LoadingIndicator } from "@/components/ui/LoadingIndicator";
 import { ErrorMessage } from "@/components/ui/ErrorMessage";
 import { useScrollProgress } from "@/hooks/useScroll";
@@ -54,14 +52,10 @@ export default function ForJiaXuePage() {
         <EntryScreen onStart={() => scrollToScreen("christmas-tree")} />
       </section>
       <section id="christmas-tree" className="relative min-h-screen snap-start">
-        <ChristmasTreeScreen />
-        <NextButton targetId="unlock" />
+        <ChristmasTreeScreen onUnlock={() => scrollToScreen("notes")} />
       </section>
-      <section id="unlock" className="relative min-h-screen snap-start">
-        <UnlockScreen onUnlock={() => scrollToScreen("finale")} />
-      </section>
-      <section id="finale" className="min-h-screen snap-start">
-        <FinaleScreen />
+      <section id="notes" className="min-h-screen snap-start">
+        <NotesScreen />
       </section>
       </main>
     </>

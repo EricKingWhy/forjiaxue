@@ -1,12 +1,20 @@
 import { ChristmasTreeCanvas } from "./ChristmasTreeCanvas";
+import { GestureOverlay } from "./GestureOverlay";
 import { useInView } from "@/hooks/useInView";
+import { useState } from "react";
 
-export function ChristmasTreeScreen() {
+type ChristmasTreeScreenProps = {
+  onUnlock: () => void;
+};
+
+export function ChristmasTreeScreen({ onUnlock }: ChristmasTreeScreenProps) {
   const { ref, inView } = useInView<HTMLDivElement>();
+  const [gestureActive, setGestureActive] = useState(false);
+
   return (
     <div ref={ref} className="relative min-h-screen overflow-hidden bg-black text-amber-100">
       <div className="absolute inset-0">
-        <ChristmasTreeCanvas active={inView} />
+        <ChristmasTreeCanvas active={inView && !gestureActive} />
       </div>
       <div className="pointer-events-none absolute inset-x-0 top-10 text-center">
         <p className="text-xs tracking-[0.45em] text-amber-200/55">FOR JIAXUE</p>
@@ -14,6 +22,7 @@ export function ChristmasTreeScreen() {
           万千星光，为你点亮
         </h2>
       </div>
+      <GestureOverlay onUnlock={onUnlock} onActiveChange={setGestureActive} />
     </div>
   );
 }

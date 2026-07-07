@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useScreenStore } from "@/stores";
 import type { ScreenName } from "@/types";
 
-const SCREEN_IDS: ScreenName[] = ["entry", "christmas-tree", "unlock", "finale"];
+const SCREEN_IDS: ScreenName[] = ["entry", "christmas-tree", "notes"];
 
 export function useScrollProgress(enabled: boolean) {
   const setCurrentScreen = useScreenStore((state) => state.setCurrentScreen);
