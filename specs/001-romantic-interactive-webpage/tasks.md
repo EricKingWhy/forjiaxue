@@ -680,9 +680,9 @@
 
 ### Phase 10：秘密消息（T142-T144）
 
-- [ ] T142 创建秘密消息表单 — **文件**: `frontend/src/components/finale/SecretMessageForm.tsx` — **标准**: 字数限制、标签、键盘可用 — **验证**: `npm run lint && npx tsc --noEmit`
-- [ ] T143 调用 `POST /api/messages` — **文件**: `api-client.ts`、`SecretMessageForm.tsx` — **标准**: 正确 payload、防重复提交、失败可重试 — **验证**: 浏览器 Network 检查 201
-- [ ] T144 创建成功反馈并验证管理端可读 — **文件**: `SecretMessageForm.tsx` — **标准**: 成功后不泄露管理数据，admin API 能读取 — **验证**: 提交后用认证 curl 查询消息
+- [x] T142 创建秘密消息表单 — **文件**: `frontend/src/components/finale/SecretMessageForm.tsx` — **标准**: 字数限制、标签、键盘可用 — **验证**: `npm run lint && npx tsc --noEmit`
+- [x] T143 调用 `POST /api/messages` — **文件**: `api-client.ts`、`SecretMessageForm.tsx` — **标准**: 正确 payload、防重复提交、失败可重试 — **验证**: 浏览器 Network 检查 201
+- [x] T144 创建成功反馈并验证管理端可读 — **文件**: `SecretMessageForm.tsx` — **标准**: 成功后不泄露管理数据，admin API 能读取 — **验证**: 提交后用认证 curl 查询消息
 
 ### Phase 11：优化打磨（T145-T150）
 

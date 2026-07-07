@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { getBlessing } from "@/lib/api-client";
 import type { FinaleStage } from "@/lib/finale-particles";
 import { FinaleParticles } from "./FinaleParticles";
+import { SecretMessageForm } from "./SecretMessageForm";
 import { TypewriterText } from "./TypewriterText";
 
 const DEFAULT_BLESSING = [
@@ -48,6 +49,7 @@ export function FinaleScreen() {
               <TypewriterText text={paragraph} delay={index === 0 ? 350 : 120} onComplete={revealNext} />
             </p>
           ))}
+          {visibleParagraphs >= paragraphs.length && <SecretMessageForm />}
         </div>
       </div>
     </div>

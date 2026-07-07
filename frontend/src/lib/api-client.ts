@@ -2,6 +2,7 @@ import type {
   BlessingResponse,
   ConfigResponse,
   MusicResponse,
+  MessageResponse,
   PasswordVerifyResponse,
   PhotosResponse,
 } from "@/types";
@@ -43,6 +44,13 @@ export function getConfig(): Promise<ConfigResponse> {
 
 export function getBlessing(): Promise<BlessingResponse> {
   return request("/api/blessing");
+}
+
+export function postMessage(content: string): Promise<MessageResponse> {
+  return request("/api/messages", {
+    method: "POST",
+    body: JSON.stringify({ content }),
+  });
 }
 
 export function verifyPassword(
