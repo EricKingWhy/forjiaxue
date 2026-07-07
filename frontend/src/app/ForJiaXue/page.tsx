@@ -28,8 +28,9 @@ export default function ForJiaXuePage() {
         hydrateConfig(config);
         console.info("ForJiaXue config loaded", config);
       })
-      .catch((reason: unknown) => {
-        setError(reason instanceof Error ? reason.message : "配置加载失败");
+      .catch(() => {
+        // 后端不可用时使用默认配置，前端可独立运行
+        console.info("Backend unavailable, using default config");
       })
       .finally(() => setIsLoading(false));
   }, [hydrateConfig]);
